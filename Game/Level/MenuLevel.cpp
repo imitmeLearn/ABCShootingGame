@@ -1,16 +1,17 @@
-#include "MenuLevel.h"
+﻿#include "MenuLevel.h"
 #include "Game/Game.h"
 
 MenuLevel::MenuLevel()
 {
-	menuItems.PushBack(new MenuItem("Resume Game", []() { Game::Get().ToggleMenu(); }));
-	menuItems.PushBack(new MenuItem("Quit Game", []() { Game::Get().QuitGame(); }));
+	menuItems.PushBack(new MenuItem("Resume Game",[]() { Game::Get().ToggleMenu(); }));
+	menuItems.PushBack(new MenuItem("Quit Game",[]() { Game::Get().QuitGame(); }));
+	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().QuitGame(); }));
 	length = menuItems.Size();
 }
 
 MenuLevel::~MenuLevel()
 {
-	for (auto* item : menuItems)
+	for(auto* item : menuItems)
 	{
 		delete item;
 	}
@@ -18,21 +19,21 @@ MenuLevel::~MenuLevel()
 
 void MenuLevel::Update(float deltaTime)
 {
-	if (Game::Get().GetKeyDown(VK_ESCAPE))
+	if(Game::Get().GetKeyDown(VK_ESCAPE))
 	{
 		Game::Get().ToggleMenu();
 	}
 
-	if (Game::Get().GetKeyDown(VK_UP))
+	if(Game::Get().GetKeyDown(VK_UP))
 	{
 		currentIndex = (currentIndex - 1 + length) % length;
 	}
-	if (Game::Get().GetKeyDown(VK_DOWN))
+	if(Game::Get().GetKeyDown(VK_DOWN))
 	{
 		currentIndex = (currentIndex + 1) % length;
 	}
 
-	if (Game::Get().GetKeyDown(VK_RETURN))
+	if(Game::Get().GetKeyDown(VK_RETURN))
 	{
 		menuItems[currentIndex]->onSelected();
 	}
@@ -42,14 +43,14 @@ void MenuLevel::Draw()
 {
 	Super::Draw();
 
-	Engine::Get().SetCursorPosition(0, 0);
-	
-	SetColor(unselectedColor);
-	Log("Sokoban Game\n\n");
+	Engine::Get().SetCursorPosition(0,0);
 
-	for (int ix = 0; ix < length; ++ix)
+	SetColor(unselectedColor);
+	Log("ABCShooting Game\n\n");
+
+	for(int ix = 0; ix < length; ++ix)
 	{
 		SetColor(ix == currentIndex ? selectedColor : unselectedColor);
-		Log("%s\n", menuItems[ix]->menuText);
+		Log("%s\n",menuItems[ix]->menuText);
 	}
 }
