@@ -36,10 +36,18 @@ void PlayHistory::CreatePlayHistory(const char* name,const char* comment,const c
 	++count;
 }
 
+void PlayHistory::CreatePlayHistory(const char * name,const char * comment)
+{
+	std::cout << "CreatePlayHistory " <<name << "  " << comment<<" \n";
+
+	playerInfos[count] = new PlayerInfo(name,comment,"00:00:00","2025.00.00",99999,99999,99999);
+	++count;
+}
+
 void PlayHistory::PrintMenu()
 {
 	// 메뉴 목록 출력.
-	std::cout << "==== ABC SHOOTING GAME ====\n";
+	std::cout << "\n\n==== ABC SHOOTING GAME ====\n";
 	std::cout << "1. 플레이 하기 \n";
 	std::cout << "2. 플레이 히스토리 보기 \n";
 	std::cout << "9. 프로그램 종료\n";
@@ -86,7 +94,7 @@ void PlayHistory::Load(const char * filename)
 			fgets(buffer,256,file);
 
 			// 정보 변수.
-			int type = 0;
+			int type = 1111;
 			char name[256];
 			char comment[256];
 			char playTime[256];
@@ -98,6 +106,7 @@ void PlayHistory::Load(const char * filename)
 			sscanf_s (
 				buffer
 				,"%d - 이름 : %s | 코멘트 : %s | 플레이타임: %s | 플레이 종료 시간: %s --------------------------- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d )"
+				//,"%d - name : %s | comment : %s | playTime: %s | EndTime: %s --------------------------- totalScore : %d ( Hit Count: %d , Dodge Count: %d )"
 				,&type,name,256,comment,256,playTime,256,endTime,256,&totalScore,&hitCount,&dodgeScore
 			);
 

@@ -31,6 +31,23 @@ PlayerInfo::PlayerInfo(const char* name,const char* comment,const char* playTime
 	}
 }
 
+PlayerInfo::PlayerInfo(const char* name,const char* comment)
+	:name(nullptr),comment(nullptr)
+{
+	if(name != nullptr)
+	{
+		size_t length = strlen(name) + 1;
+		this->name = new char[length];
+		strcpy_s(this->name,length,name);
+	}
+	if(comment != nullptr)
+	{
+		size_t length = strlen(comment) + 1;
+		this->comment = new char[length];
+		strcpy_s(this->comment,length,comment);
+	}
+}
+
 PlayerInfo::~PlayerInfo()
 {
 	delete[] name;

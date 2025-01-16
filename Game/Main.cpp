@@ -10,6 +10,8 @@ enum class MenuType
 {
 	Create = 1
 	,History
+	,TESTER7 = 7
+	,TESTER8 = 8
 	,Exit = 9
 };
 
@@ -56,9 +58,19 @@ int main()
 
 				/*	game.LoadLevel(new GameLevel());
 					game.Run();*/
+				playHistory->CreatePlayHistory(name,comment);	//저장 테스트
+				break;
+
+				case MenuType::History:
 
 				break;
-				case MenuType::History:
+
+				case MenuType::TESTER7:
+				playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
+
+				break;
+				case MenuType::TESTER8:
+				playHistory->CreatePlayHistory("TEST","GOOD~");	//저장 테스트
 
 				break;
 
