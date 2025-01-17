@@ -2,8 +2,112 @@
 
 #include "Game/Game.h"
 
+#include "Actor/Wall.h"
+#include "Actor/Ground.h"
+
+#include "Actorabc/shooter.h"
+
 GameLevel_ABC::GameLevel_ABC()
-{}
+{
+	Engine::Get().SetCursorType(CursorType::NoCursor);//커서 감추기
+
+	// 맵 파일 불러와 레벨 로드.
+
+	FILE* file = nullptr;
+	fopen_s(&file,"../Assets/Maps/MapABC.txt","rb");		//원슬래시는 1개**
+
+	if(file == nullptr)
+	{
+		std :: cout << "맵 파일 열기 실패. \n";
+
+		__debugbreak();
+		return;
+	}
+
+	fseek(file,0,SEEK_END);			//파일 읽기, 끝위치로 이동
+	size_t readSize = ftell(file);	//이동한 위치의 FP 가져오기
+
+	rewind(file);	//FP 원위치하는! 같은거// SET/ / fseek(file,0,SEEK_SET)//파일 읽기, 끝위치로 이동
+
+	char* buffer = new char[readSize +1];	//파일 읽어서 버퍼에 담기
+	size_t bytesRead =	fread(buffer,1,readSize,file);
+	if(readSize != bytesRead)
+	{
+		std::cout << "읽어온 크기가 다름 \n";
+		__debugbreak();
+		return ;
+	}
+
+	buffer[readSize] = '\0';
+	//std::cout << buffer << "\n";	//테스트출력
+
+	int index=0;//파일 읽을 때 사용할 인덱스
+	int xPosition = 0;
+	int yPosition = 0;
+
+	while(index < (int)bytesRead)	//해석 파씽
+	{
+		char mapChar = buffer[index++];	//한 문자씩 읽기
+
+		if(mapChar == '\n')
+		{
+			++yPosition;
+			xPosition =0;
+			continue;
+		}
+
+		if(mapChar == '1')
+		{
+			//	actors.PushBack(new Wall(Vector2(xPosition,yPosition)));
+			Wall * wall = new Wall(Vector2(xPosition,yPosition));
+			actors.PushBack(wall);
+			map.PushBack(wall);
+		}
+
+		else if(mapChar == '.')
+		{
+			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			actors.PushBack(ground);
+			map.PushBack(ground);
+		}
+
+		//else if(mapChar == 'b')	//움직이기에, Ground 먼저 그려줌
+		//{
+		//	Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+		//	actors.PushBack(ground);
+		//	map.PushBack(ground);
+
+		//	Box* box =  new Box(Vector2(xPosition,yPosition));
+		//	actors.PushBack(box);
+		//	boxes.PushBack(box);
+		//}
+
+		//else if(mapChar == 't')
+		//{
+		//	Target* target =  new Target(Vector2(xPosition,yPosition));
+		//	actors.PushBack(target);
+		//	map.PushBack(target);
+		//	targets.PushBack(target);
+		//}
+
+		//else if(mapChar == 'p')	//움직이기에, Ground 먼저 그려줌
+		//{
+		//	Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+		//	actors.PushBack(ground);
+		//	map.PushBack(ground);	//랜더 제어 목적으로!
+
+		//	player =  new Player(Vector2(xPosition,yPosition),this);
+		//	actors.PushBack(player);
+		//}
+
+		++xPosition;
+		//	std::cout << mapChar;
+	}
+
+	delete[] buffer;	//버퍼 삭제
+
+	fclose(file);		//파일 닫기
+}
 
 GameLevel_ABC::~GameLevel_ABC()
 {}
@@ -19,7 +123,30 @@ void GameLevel_ABC::Update(float deltaTime)
 
 void GameLevel_ABC::Draw()
 {
-	std::cout << name << comment <<"\n";
+	//std::cout << name << comment <<"\n";
+
+	for(auto* actor:map)		//맵 그리기
+	{
+		//if(actor-> Position() == player->Position())	//플레이어 위치 확인
+		//{
+		//	continue;
+		//}
+
+		bool shouldDraw = true;
+		/*	for(auto* box : boxes)
+			{
+				if(actor->Position() == box->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+		if(shouldDraw)
+		{
+			actor -> Draw();	//맵 액터 그리기
+		}
+	}
 }
 
 void GameLevel_ABC::SetPlayer(const char* name,const char* comment)

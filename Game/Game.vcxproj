@@ -183,6 +183,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActorABC\Shooter.cpp" />
     <ClCompile Include="Actor\Box.cpp" />
     <ClCompile Include="Actor\Player.cpp" />
     <ClCompile Include="Actor\Target.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorABC\Shooter.h" />
     <ClInclude Include="Actor\Box.h" />
     <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="Actor\Target.h" />

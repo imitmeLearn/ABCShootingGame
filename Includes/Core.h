@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 
 #if ENGINE_BUILD_DLL
@@ -18,7 +18,18 @@ enum class Color: unsigned short	//색상 열거형 - 명시적 형변환
 	Red = FOREGROUND_RED,		//1
 	Green = FOREGROUND_GREEN,	//2
 	Blue = FOREGROUND_BLUE,		//4
-	White = Red+Green +Blue,	//7
+	//Yellow = FOREGROUND_BLUE,		//4
+	//White = Red+Green +Blue,	//7
+
+	Cyan = Green | Blue,              // 6 (청록색)
+	Magenta = Red | Blue,             // 5 (자홍색)
+	Yellow = Red | Green,             // 3 (노란색)
+	White = Red | Green | Blue,       // 7 (흰색)
+	BrightRed = Red,                  // 밝은 빨간색
+	BrightGreen = Green,              // 밝은 초록색
+	BrightBlue = Blue,                // 밝은 파란색
+	BrightYellow = Red | Green,       // 밝은 노란색
+	BrightWhite = Red | Green | Blue  // 밝은 흰색
 };
 
 // 콘솔 색상 설정 함수
