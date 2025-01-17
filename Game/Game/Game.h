@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <Engine/Engine.h>
+#include "Info\PlayHistory.h"
 
 class Game: public Engine
 {
@@ -10,6 +11,9 @@ public:
 
 	void ToggleMenu();
 	void SetPlayerInfo();
+	void SaveFile();
+	void StartGame();
+	void StartGame_mini();
 
 	static Game& Get() {
 		return *instance;
@@ -28,6 +32,9 @@ private:
 	Level* beforeStartLevel = nullptr;
 	Level* historyLevel = nullptr;
 
+	Level* ABCGameLevel = nullptr;
+
+	PlayHistory* playHistory = new PlayHistory();
 private:
 	static Game* instance;
 };

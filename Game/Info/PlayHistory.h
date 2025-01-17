@@ -9,6 +9,7 @@ public:
 	// 플레이 히스토리 생성
 	void CreatePlayHistory(const char* name,const char* comment,const char* playTime,const char* endTime,int totalScore,int hitCount,int dodgeCount);
 	void CreatePlayHistory(const char* name,const char* comment);
+	void CreatePlayHistory(const char* name,const char* comment,const char* playTime,const char* endTime);
 
 	// 플레이 히스토리 출력
 	void PrintHistory();

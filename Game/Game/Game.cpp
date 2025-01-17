@@ -31,11 +31,33 @@ Game::~Game()
 	menuLevel = nullptr;
 }
 
+void Game::StartGame_mini()
+{
+	system("cls");
+	std::cout << "StartGame_mini";
+}
+
+void Game::SaveFile(){
+	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
+	char cStrfTime[64];
+
+	__time64_t now2 = _time64(nullptr);
+	tm tm_2;
+	gmtime_s(&tm_2,&now2);
+
+	strftime(cStrfTime,64,"%Y년 %m월 %d일 %H시 %M분 %S초\n",&tm_2);
+	std::cout << "SaveFile - 시간: "<<cStrfTime;
+
+	playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
+	playHistory->CreatePlayHistory("TEST","GOOD~","없음",cStrfTime);	//저장 테스트
+
+	playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
+}
+
 void Game::SetPlayerInfo()
 {
 	system("cls");
 	//Clear();
-	//
 	std::cout << "	if(showMenu) 1" << showMenu;
 	showMenu = !showMenu;
 	if(showMenu)
@@ -67,4 +89,10 @@ void Game::ToggleMenu()
 	{
 		mainLevel = backLevel;
 	}
+}
+
+void Game::StartGame()
+{
+	system("cls");
+	std::cout << "StartGame";
 }

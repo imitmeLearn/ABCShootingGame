@@ -6,9 +6,12 @@ MenuLevel::MenuLevel()
 	Engine::Get().SetCursorType(CursorType::NoCursor);//커서 감추기
 
 	menuItems.PushBack(new MenuItem("Start Game",[]() { Game::Get().SetPlayerInfo(); }));
+	menuItems.PushBack(new MenuItem("Start Game_mini",[]() { Game::Get().StartGame_mini(); }));
 	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().QuitGame(); }));
 	menuItems.PushBack(new MenuItem("Resume Game",[]() { Game::Get().ToggleMenu(); }));
 	menuItems.PushBack(new MenuItem("Quit Game",[]() { Game::Get().QuitGame(); }));
+	menuItems.PushBack(new MenuItem("Save History",[]() { Game::Get().SaveFile(); }));
+
 	length = menuItems.Size();
 }
 
