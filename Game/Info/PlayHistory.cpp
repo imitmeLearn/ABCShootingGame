@@ -43,6 +43,13 @@ void PlayHistory::CreatePlayHistory(const char * name,const char * comment)
 	playerInfos[count] = new PlayerInfo(name,comment,"00:00:00","2025.00.00",99999,99999,99999);
 	++count;
 }
+void PlayHistory::CreatePlayHistory(const char * name,const char * comment,const char * playTime,const char * endTime)
+{
+	std::cout << "CreatePlayHistory " <<name << "  " << comment<<" \n";
+
+	playerInfos[count] = new PlayerInfo(name,comment,playTime,endTime,99999,99999,99999);
+	++count;
+}
 
 void PlayHistory::PrintMenu()
 {

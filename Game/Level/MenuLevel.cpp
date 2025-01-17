@@ -5,6 +5,7 @@ MenuLevel::MenuLevel()
 {
 	Engine::Get().SetCursorType(CursorType::NoCursor);//커서 감추기
 
+	menuItems.PushBack(new MenuItem("Start Game - sokoban",[]() { Game::Get().StartGame_Sokoban(); }));
 	menuItems.PushBack(new MenuItem("Start Game",[]() { Game::Get().SetPlayerInfo(); }));
 	menuItems.PushBack(new MenuItem("Start Game_mini",[]() { Game::Get().StartGame_mini(); }));
 	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().QuitGame(); }));

@@ -12,6 +12,7 @@ public:
 	void ToggleMenu();
 	void SetPlayerInfo();
 	void SaveFile();
+	void StartGame_Sokoban();
 	void StartGame();
 	void StartGame_mini();
 
@@ -30,6 +31,8 @@ private:
 	Level* backLevel = nullptr;
 
 	Level* beforeStartLevel = nullptr;
+	Level* gameLevel_sokoban = nullptr;
+
 	Level* historyLevel = nullptr;
 
 	Level* ABCGameLevel = nullptr;

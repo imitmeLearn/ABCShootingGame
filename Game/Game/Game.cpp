@@ -2,6 +2,7 @@
 
 #include "Level/MenuLevel.h"
 #include "Level/BeforeStartLevel.h"
+#include "Level/GameLevel.h"
 
 Game* Game::instance = nullptr;
 
@@ -12,6 +13,7 @@ Game::Game()
 
 	menuLevel = new MenuLevel();
 	beforeStartLevel = new BeforeStartLevel();
+	gameLevel_sokoban = new GameLevel();
 }
 
 Game::~Game()
@@ -31,6 +33,21 @@ Game::~Game()
 	menuLevel = nullptr;
 }
 
+void Game::StartGame_Sokoban()
+{
+	system("cls");
+	showMenu = !showMenu;
+	if(showMenu)
+	{
+		backLevel = mainLevel;
+		mainLevel = gameLevel_sokoban;
+	}
+
+	else
+	{
+		mainLevel = backLevel;
+	}
+}
 void Game::StartGame_mini()
 {
 	system("cls");
