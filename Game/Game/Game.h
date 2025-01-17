@@ -9,13 +9,15 @@ public:
 	Game();
 	~Game();
 
+	bool CheckPlaying(Level* nextGameLevel);
+
 	void ToggleMenu();
 	void StartGameSetPlayer_ABC();
 	void StartGame_ABC_TESTER();
 	void StartGame_ABC();
 	void SaveFile();
 	void StartGame_Sokoban();
-	void StartGame();
+	//void StartGame();
 	void StartGame_mini();
 
 	static Game& Get() {

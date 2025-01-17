@@ -33,14 +33,29 @@ Game::~Game()
 	menuLevel = nullptr;
 }
 
+bool Game::CheckPlaying(Level * nextGameLevel)
+{
+	if(backLevel == nextGameLevel)
+	{
+		return true;
+	}
+	return false;
+}
+
 void Game::StartGame_Sokoban()
 {
 	system("cls");
 	showMenu = !showMenu;
-	if(showMenu)
+	if(showMenu ||  !CheckPlaying(gameLevel_ABC))
 	{
+		Game::Get().SetShowMenu(false);
+
 		backLevel = mainLevel;
 		mainLevel = gameLevel_sokoban;
+	}
+
+	else	if(!CheckPlaying(gameLevel_sokoban))
+	{
 	}
 
 	else
@@ -101,9 +116,10 @@ void Game::StartGame_ABC()
 	//Clear();
 
 	showMenu = !showMenu;
-	if(showMenu)
+	if(showMenu ||!CheckPlaying(gameLevel_ABC))
 	{
 		std::cout << " StartGame_ABC  ";
+		Game::Get().SetShowMenu(false);
 
 		backLevel = mainLevel;
 		mainLevel = gameLevel_ABC;
@@ -132,8 +148,8 @@ void Game::ToggleMenu()
 	}
 }
 
-void Game::StartGame()
-{
-	system("cls");
-	std::cout << "StartGame";
-}
+//void Game::StartGame()
+//{
+//	system("cls");
+//	std::cout << "StartGame";
+//}
