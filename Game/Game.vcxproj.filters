@@ -48,7 +48,7 @@
     <ClCompile Include="Info\PlayHistory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Level\BeforeStartLevel.cpp">
+    <ClCompile Include="Level\GameLevel_ABC.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,7 +86,7 @@
     <ClInclude Include="Info\PlayHistory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Level\BeforeStartLevel.h">
+    <ClInclude Include="Level\GameLevel_ABC.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

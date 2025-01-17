@@ -1,8 +1,8 @@
 ﻿#include "Game.h"
 
 #include "Level/MenuLevel.h"
-#include "Level/BeforeStartLevel.h"
 #include "Level/GameLevel.h"
+#include "Level/GameLevel_ABC.h"
 
 Game* Game::instance = nullptr;
 
@@ -12,8 +12,8 @@ Game::Game()
 	instance = this;
 
 	menuLevel = new MenuLevel();
-	beforeStartLevel = new BeforeStartLevel();
 	gameLevel_sokoban = new GameLevel();
+	gameLevel_ABC = new GameLevel_ABC();
 }
 
 Game::~Game()
@@ -71,18 +71,42 @@ void Game::SaveFile(){
 	playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
 }
 
-void Game::SetPlayerInfo()
+void Game::StartGameSetPlayer_ABC()
 {
 	system("cls");
 	//Clear();
-	std::cout << "	if(showMenu) 1" << showMenu;
+	char	name[100];
+	char comment[512];;
+
+	std::cout << " 이름을 입력하세요 :   ";
+	std::cin >> name;
+
+	std::cout << " 시작 전 남기고픈 말은?  ";
+	std::cin >> comment;
+
+	dynamic_cast<GameLevel_ABC*>(gameLevel_ABC)->SetPlayer(name,comment);
+
+	StartGame_ABC();
+}
+void Game::StartGame_ABC_TESTER()
+{
+	dynamic_cast<GameLevel_ABC*>(gameLevel_ABC)->SetPlayer("TESTER","comment : winwin");
+
+	StartGame_ABC();
+}
+
+void Game::StartGame_ABC()
+{
+	system("cls");
+	//Clear();
+
 	showMenu = !showMenu;
 	if(showMenu)
 	{
-		std::cout << "	if(showMenu) 2";
+		std::cout << " StartGame_ABC  ";
 
 		backLevel = mainLevel;
-		mainLevel = beforeStartLevel;
+		mainLevel = gameLevel_ABC;
 	}
 
 	else

@@ -10,7 +10,9 @@ public:
 	~Game();
 
 	void ToggleMenu();
-	void SetPlayerInfo();
+	void StartGameSetPlayer_ABC();
+	void StartGame_ABC_TESTER();
+	void StartGame_ABC();
 	void SaveFile();
 	void StartGame_Sokoban();
 	void StartGame();
@@ -30,14 +32,13 @@ private:
 	Level* menuLevel = nullptr;
 	Level* backLevel = nullptr;
 
-	Level* beforeStartLevel = nullptr;
+	Level* gameLevel_ABC = nullptr;
 	Level* gameLevel_sokoban = nullptr;
 
 	Level* historyLevel = nullptr;
 
-	Level* ABCGameLevel = nullptr;
-
 	PlayHistory* playHistory = new PlayHistory();
 private:
+
 	static Game* instance;
 };
