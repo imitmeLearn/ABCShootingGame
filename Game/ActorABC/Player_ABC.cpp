@@ -6,8 +6,8 @@
 #include "ActorABC/ABCBullet.h"
 
 Player_ABC::Player_ABC(const Vector2 & position,GameLevel_ABC * level)
-	:DrawableActor("★"),refLevel(level)
-	//:DrawableActor("P"),refLevel(level)
+//:DrawableActor("★"),refLevel(level)
+	:DrawableActor("P"),refLevel(level)
 {
 	this->position = position;	//위치 설정
 	color = Color::White;		//색상 설정
@@ -56,11 +56,10 @@ void Player_ABC::Update(float deltaTime)
 
 	if(Engine::Get().GetKeyDown(VK_SPACE))
 	{
-		std::cout<<" VK_SPACE\n";
-
+		//Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
 		Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
 
 		ABCBullet* abcBullet = new ABCBullet(bulletPosition);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-		refLevel->SetActors(abcBullet);
+		refLevel->SetActors_Bullets(abcBullet);
 	}
 }

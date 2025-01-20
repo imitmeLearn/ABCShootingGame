@@ -244,6 +244,30 @@ void GameLevel_ABC::Draw()
 		}
 	}
 
+	//총알 그리기
+	for(auto* bullet:bullets)
+	{
+		if(bullet-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		{
+			continue;
+		}
+
+		bool shouldDraw = true;
+		/*	for(auto* box : boxes)
+			{
+				if(bullet->Position() == box->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+		if(shouldDraw)
+		{
+			bullet -> Draw();
+		}
+	}
+
 	player_ABC->Draw();			//플레이어 그리기
 }
 
@@ -308,7 +332,8 @@ bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
 	return false;
 }
 
-void GameLevel_ABC::SetActors(Actor *&& actor)
+void GameLevel_ABC::SetActors_Bullets(Actor *&& actor)
 {
 	actors.PushBack(actor);
+	bullets.PushBack((DrawableActor*)actor);
 }

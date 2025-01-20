@@ -21,9 +21,6 @@ void Actor::SetPosition(const Vector2 & newPosition)
 	position = newPosition;
 }
 
-//void Actor::SetReImage(const char* image)
-//{}
-
 Vector2 Actor::Position() const
 {
 	return position;

@@ -1,28 +1,13 @@
 ﻿#include "ABCBullet.h"
 
 //_Column
-ABCBullet::ABCBullet(bool isRow,const Vector2 & position)
-{
-	this->isRow =isRow;
-
-	if(isRow)
-	{
-		DrawableActor("―");
-	}
-
-	else
-	{
-		DrawableActor("|");
-		this -> position = position;
-		yPosition = (float)position.y;
-	}
-}
 
 ABCBullet::ABCBullet(const Vector2 & position)
 	:DrawableActor("|")
 {
 	this -> position = position;
 	yPosition = (float)position.y;
+	xPosition = (float)position.x;
 
 	color = Color::White;
 }
@@ -30,17 +15,22 @@ ABCBullet::ABCBullet(const Vector2 & position)
 void ABCBullet::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
-	std::cout<<"ABCBullet::Update(float deltaTime) \n";
 
-	/*if(isRow)
+	if(isRow)
 	{
+		SetReImage("―");
+
+		xPosition += speed * deltaTime;
+		position.x = (int)xPosition;
 	}
 
 	else
 	{
+		SetReImage("|");
+
 		yPosition += speed * deltaTime;
 		position.y = (int)yPosition;
-	}*/
+	}
 
 	if(position.y < 0)
 	{
@@ -53,4 +43,14 @@ void ABCBullet::Update(float deltaTime)
 		Destroy();
 		return;
 	}
+}
+
+void ABCBullet::SetReImage(const char * image)
+{
+	auto length = strlen(image) + 1;
+	this->image = new char[length];
+	strcpy_s(this->image,length,image);
+
+	//너비 설정
+	width = (int)strlen(image);
 }
