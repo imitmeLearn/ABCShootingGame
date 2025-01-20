@@ -5,6 +5,7 @@
 #include "Actor/Wall.h"
 #include "Actor/Ground.h"
 
+#include "Actorabc/Player_ABC.h"
 #include "Actorabc/shooter.h"
 
 GameLevel_ABC::GameLevel_ABC()
@@ -90,15 +91,15 @@ GameLevel_ABC::GameLevel_ABC()
 		//	targets.PushBack(target);
 		//}
 
-		//else if(mapChar == 'p')	//움직이기에, Ground 먼저 그려줌
-		//{
-		//	Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-		//	actors.PushBack(ground);
-		//	map.PushBack(ground);	//랜더 제어 목적으로!
+		else if(mapChar == 'P')	//움직이기에, Ground 먼저 그려줌
+		{
+			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			actors.PushBack(ground);
+			map.PushBack(ground);	//랜더 제어 목적으로!
 
-		//	player =  new Player(Vector2(xPosition,yPosition),this);
-		//	actors.PushBack(player);
-		//}
+			player_ABC =  new Player_ABC(Vector2(xPosition,yPosition),this);
+			actors.PushBack(player_ABC);
+		}
 
 		++xPosition;
 		//	std::cout << mapChar;
@@ -108,9 +109,6 @@ GameLevel_ABC::GameLevel_ABC()
 
 	fclose(file);		//파일 닫기
 }
-
-GameLevel_ABC::~GameLevel_ABC()
-{}
 
 void GameLevel_ABC::Update(float deltaTime)
 {
@@ -127,10 +125,10 @@ void GameLevel_ABC::Draw()
 
 	for(auto* actor:map)		//맵 그리기
 	{
-		//if(actor-> Position() == player->Position())	//플레이어 위치 확인
-		//{
-		//	continue;
-		//}
+		if(actor-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		{
+			continue;
+		}
 
 		bool shouldDraw = true;
 		/*	for(auto* box : boxes)
@@ -147,6 +145,8 @@ void GameLevel_ABC::Draw()
 			actor -> Draw();	//맵 액터 그리기
 		}
 	}
+
+	player_ABC->Draw();			//플레이어 그리기
 }
 
 void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
@@ -175,3 +175,9 @@ void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
 
 	std::cout<<"SetPlayer" << name << comment <<"\n";
 }
+
+//bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
+//{
+//	//@todo : 이동가능 체크
+//	return true;
+//}

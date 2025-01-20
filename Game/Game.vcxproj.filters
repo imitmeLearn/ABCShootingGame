@@ -54,6 +54,9 @@
     <ClCompile Include="ActorABC\Shooter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ActorABC\Player_ABC.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Wall.h">
@@ -93,6 +96,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ActorABC\Shooter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorABC\Player_ABC.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
