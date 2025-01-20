@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Actor/DrawableActor.h>
 class GameLevel;	//게임레벨 전방 선언

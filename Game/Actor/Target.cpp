@@ -1,4 +1,4 @@
-#include "Target.h"
+﻿#include "Target.h"
 
 Target::Target(const Vector2 & position)
 	:DrawableActor("T")
