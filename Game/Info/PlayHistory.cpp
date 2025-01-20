@@ -123,7 +123,7 @@ void PlayHistory::Load(const char * filename)
 
 			sscanf_s (
 				buffer
-				,"%d - 이름 : %s, 코멘트 : %s,플레이 타임: %s,플레이 시간: %s  --- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d ) \n"
+				,"%d - name : %s comment : %s playTime: %s endTime: %s  --- totalScore : %d ( hitCount: %d   dodgeCount: %d ) \n"
 				//,"%d - name : %s | comment : %s | playTime: %s | EndTime: %s --------------------------- totalScore : %d ( Hit Count: %d , Dodge Count: %d )"
 				,&type,name,256,comment,256,playTime,256,endTime,256,&totalScore,&hitCount,&dodgeScore
 			);

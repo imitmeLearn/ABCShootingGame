@@ -44,7 +44,7 @@ const char * PlayerInfo::Serialize()
 	//snprintf(buffer,256,"이름 : %s | 코멘트 : %s | 플레이타임: %s | 플레이 종료 시간: %s -----------------총 점수 : %d ( 파괴 수: %d , 회피 수: %d )"
 	//	,name,comment,playTime,endTime,totalScore,hitCount,dodgeCount);
 
-	snprintf(buffer,256,"1111 - 이름 : %s, 코멘트 : %s,플레이 타임: %s,플레이 시간: %s  --- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d )"
+	snprintf(buffer,256,"1111 - name : %s comment : %s playTime: %s endTime: %s  --- totalScore : %d ( hitCount: %d   dodgeCount: %d )"
 	,name,comment,playTime,endTime,totalScore,hitCount,dodgeCount);
 
 	// %d - 이름 : %s, 코멘트 : %s,플레이 타임: %s,플레이 시간: %s  --- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d ) \n
