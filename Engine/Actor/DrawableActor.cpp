@@ -8,6 +8,8 @@ DrawableActor::DrawableActor(const char* image)
 	//해도 안해도 되지만, 명시적 생성을 위해 호촐
 	//,image(image)
 {
+	//std::cout<<" 그리기 확인 : "<<&image;
+
 	auto length = strlen(image) + 1;
 	this->image = new char[length];
 	strcpy_s(this->image,length,image);

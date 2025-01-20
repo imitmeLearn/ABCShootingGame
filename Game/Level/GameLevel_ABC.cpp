@@ -133,6 +133,21 @@ GameLevel_ABC::GameLevel_ABC()
 	delete[] buffer;	//버퍼 삭제
 
 	fclose(file);		//파일 닫기
+
+	//슈터
+	auto start_a = "A";
+	for(DrawableActor* shooter:shooters)
+	{
+		//shooter->SetReImage((char*)start_A++);
+		dynamic_cast<Shooter*>(shooter)->SetReImage(start_a);
+	}
+
+	auto start_A = "a";
+	for(DrawableActor* stepper:steppers)
+	{
+		dynamic_cast<Stepper*>(stepper)->SetReImage(start_A);
+		//start_A++;
+	}
 }
 
 void GameLevel_ABC::Update(float deltaTime)

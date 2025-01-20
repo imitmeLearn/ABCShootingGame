@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Core.h"
 #include "RTTI.h"
@@ -19,6 +19,7 @@ public:
 	virtual void Draw();						//루프
 
 	virtual void SetPosition(const Vector2& newPosition);
+	//virtual void SetReImage(const char* image);
 	Vector2 Position() const;
 
 	inline bool IsActive() const {
