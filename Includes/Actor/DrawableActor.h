@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Actor.h"
 
 class ENGINE_API DrawableActor: public Actor
