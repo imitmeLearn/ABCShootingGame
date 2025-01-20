@@ -60,6 +60,9 @@
     <ClCompile Include="ActorABC\ABCBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ActorABC\Stepper.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Wall.h">
@@ -105,6 +108,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ActorABC\ABCBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorABC\Stepper.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

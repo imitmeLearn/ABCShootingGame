@@ -28,6 +28,8 @@ private:
 	char* comment= nullptr;		// 플레이어 코멘트
 
 	List <DrawableActor*> map;	//벽 땅 액터 배열
+	List <DrawableActor*> shooters;	//벽 땅 액터 배열
+	List <DrawableActor*> steppers;	//벽 땅 액터 배열
 
 	Player_ABC* player_ABC = nullptr;	//플레이어 액터
 	bool isGameClear = false;	//게임 클리어 변수

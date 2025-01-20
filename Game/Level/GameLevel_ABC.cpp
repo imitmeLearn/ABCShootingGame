@@ -6,7 +6,8 @@
 #include "Actor/Ground.h"
 
 #include "Actorabc/Player_ABC.h"
-#include "Actorabc/shooter.h"
+#include "Actorabc/Shooter.h"
+#include "Actorabc/Stepper.h"
 
 GameLevel_ABC::GameLevel_ABC()
 {
@@ -91,6 +92,30 @@ GameLevel_ABC::GameLevel_ABC()
 		//	targets.PushBack(target);
 		//}
 
+		else if(mapChar == 'S')
+		{
+			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			actors.PushBack(ground);
+			map.PushBack(ground);	//랜더 제어 목적으로!
+
+			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition));
+			actors.PushBack(shooter);
+			map.PushBack(shooter);	//랜더 제어 목적으로! //깜밖임 제어??
+			shooters.PushBack(shooter);
+		}
+
+		else if(mapChar == 's')
+		{
+			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			actors.PushBack(ground);
+			map.PushBack(ground);	//랜더 제어 목적으로!
+
+			Stepper* stepper =  new Stepper(Vector2(xPosition,yPosition));
+			actors.PushBack(stepper);
+			map.PushBack(stepper);	//랜더 제어 목적으로! //깜밖임 제어??
+			steppers.PushBack(stepper);
+		}
+
 		else if(mapChar == 'P')	//움직이기에, Ground 먼저 그려줌
 		{
 			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
@@ -139,6 +164,54 @@ void GameLevel_ABC::Draw()
 		if(shouldDraw)
 		{
 			actor -> Draw();	//맵 액터 그리기
+		}
+	}
+
+	//슈터그리기
+	for(auto* shooter:shooters)
+	{
+		if(shooter-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		{
+			continue;
+		}
+
+		bool shouldDraw = true;
+		/*	for(auto* box : boxes)
+			{
+				if(shooter->Position() == box->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+		if(shouldDraw)
+		{
+			shooter -> Draw();
+		}
+	}
+
+	//푸터그리기
+	for(auto* stepper:steppers)
+	{
+		if(stepper-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		{
+			continue;
+		}
+
+		bool shouldDraw = true;
+		/*	for(auto* box : boxes)
+			{
+				if(stepper->Position() == box->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+		if(shouldDraw)
+		{
+			stepper -> Draw();
 		}
 	}
 

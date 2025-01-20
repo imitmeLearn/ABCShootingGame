@@ -186,6 +186,7 @@
     <ClCompile Include="ActorABC\ABCBullet.cpp" />
     <ClCompile Include="ActorABC\Player_ABC.cpp" />
     <ClCompile Include="ActorABC\Shooter.cpp" />
+    <ClCompile Include="ActorABC\Stepper.cpp" />
     <ClCompile Include="Actor\Box.cpp" />
     <ClCompile Include="Actor\Player.cpp" />
     <ClCompile Include="Actor\Target.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="ActorABC\ABCBullet.h" />
     <ClInclude Include="ActorABC\Player_ABC.h" />
     <ClInclude Include="ActorABC\Shooter.h" />
+    <ClInclude Include="ActorABC\Stepper.h" />
     <ClInclude Include="Actor\Box.h" />
     <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="Actor\Target.h" />
