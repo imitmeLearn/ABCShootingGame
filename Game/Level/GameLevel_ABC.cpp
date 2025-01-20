@@ -155,8 +155,14 @@ GameLevel_ABC::GameLevel_ABC()
 		char* shooterText = new char[2]; // 동적 메모리 할당
 		shooterText[0] = (char)start_A; // 첫 번째 문자
 		shooterText[1] = '\0';       // null 문자 추가
+		if(start_A == 'a')
+		{
+			dynamic_cast<Stepper*>(stepper)->SetReImage(shooterText,StepperType::CurrPos);
+		}
 
-		dynamic_cast<Stepper*>(stepper)->SetReImage(shooterText);
+		else{
+			dynamic_cast<Stepper*>(stepper)->SetReImage(shooterText,StepperType::OtherPos);
+		}
 
 		delete[] shooterText; // 메모리 해제
 

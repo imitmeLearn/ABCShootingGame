@@ -1,6 +1,14 @@
 ﻿#pragma once
 
 #include <Actor/DrawableActor.h>
+enum class StepperType				//스텝퍼 종류
+{
+	None = -1,
+	CurrPos,
+	OtherPos,
+	AllRight,
+	AllLeft,
+};
 class Stepper: public DrawableActor
 {
 	RTTI_DECLARATIONS(Stepper,DrawableActor)
@@ -24,7 +32,21 @@ public:
 		index= (int)c;
 		//std::cout<<"\n 그리기 확인 : "<<index;
 	}
+	void SetReImage(const char* image,StepperType type)
+	{
+		SetReImage(image);
+		SetType(type);
+	}
+	void SetType(StepperType type)
+	{
+		this-> type = type;
+	}
+	StepperType GetType()
+	{
+		return type;
+	}
 
 private:
 	int index = -1;
+	StepperType type = StepperType::None;
 };

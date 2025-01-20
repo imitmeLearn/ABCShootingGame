@@ -4,6 +4,7 @@
 #include "Level/GameLevel_ABC.h"
 
 #include "ActorABC/ABCBullet.h"
+#include "ActorABC/Stepper.h"
 
 Player_ABC::Player_ABC(const Vector2 & position,GameLevel_ABC * level)
 //:DrawableActor("★"),refLevel(level)
@@ -56,13 +57,22 @@ void Player_ABC::Update(float deltaTime)
 
 	if(Engine::Get().GetKeyDown(VK_SPACE))
 	{
-		if(nullptr != refLevel->CanPlayerShoot(position))
-		{
-			Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
+		Actor* actor = refLevel->CanPlayerShoot(position);
 
-			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-			refLevel->SetActors_Bullets(abcBullet);
-		} else
+		if(nullptr != actor)
+		{
+			Stepper* curr =	dynamic_cast<Stepper*> (actor); //@세윤쌤 : 이렇게 막 형변환 해도 됨?
+
+			if(curr->GetType() == StepperType::CurrPos)
+			{
+				Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
+
+				ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+				refLevel->SetActors_Bullets(abcBullet);
+			}
+		}
+
+		else
 
 		{
 		}
