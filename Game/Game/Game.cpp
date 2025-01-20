@@ -69,7 +69,7 @@ void Game::StartGame_mini()
 	std::cout << "StartGame_mini";
 }
 
-void Game::SaveFile(){
+void Game::SaveFile(){ //@세윤쌤 질문
 	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
 	char cStrfTime[64];
 

@@ -27,11 +27,10 @@ MenuLevel::~MenuLevel()
 
 void MenuLevel::Update(float deltaTime)
 {
-	//@check : player 꺼가 먼저 실행됨.
-	if(Game::Get().GetKeyDown(VK_ESCAPE))
-	{
-		Game::Get().ToggleMenu();
-	}
+	//if(Game::Get().GetKeyDown(VK_ESCAPE))
+	//{
+	//	Game::Get().ToggleMenu();
+	//}
 
 	if(Game::Get().GetKeyDown(VK_UP))
 	{

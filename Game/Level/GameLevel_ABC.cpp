@@ -112,11 +112,7 @@ GameLevel_ABC::GameLevel_ABC()
 
 void GameLevel_ABC::Update(float deltaTime)
 {
-	//@check : player 꺼가 먼저 실행됨.
-	if(Game::Get().GetKeyDown(VK_ESCAPE))
-	{
-		Game::Get().ToggleMenu();
-	}
+	Super::Update(deltaTime);
 }
 
 void GameLevel_ABC::Draw()
@@ -176,8 +172,41 @@ void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
 	std::cout<<"SetPlayer" << name << comment <<"\n";
 }
 
-//bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
-//{
-//	//@todo : 이동가능 체크
-//	return true;
-//}
+bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
+{
+	if(isGameClear)
+	{
+		return false;
+	}
+
+	DrawableActor* searchedActor = nullptr;	// 이동하려는 위치에 벽 있는지 확인
+
+	for(auto* actor : map)
+	{
+		if(actor->Position() == position)
+		{
+			searchedActor = actor;
+			break;
+		}
+	}
+
+	//이동불가 -> 벽
+	if(searchedActor->As<Wall>())
+	{
+		return false;
+	}
+
+	// 이동가능 -> 땅, 타겟
+	if(searchedActor->As<Ground>())
+		//if(searchedActor->As<Ground>()   || searchedActor->As<Target>())
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void GameLevel_ABC::SetActors(Actor *&& actor)
+{
+	actors.PushBack(actor);
+}

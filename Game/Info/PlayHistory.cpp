@@ -63,8 +63,9 @@ void PlayHistory::PrintMenu()
 
 void PlayHistory::Save(const char* filename)
 {
-	char buffer[2048];		// 저장할 데이터 생성.
-	memset(buffer,0,2048);
+	int size = 2048 * 10;
+	char buffer[2048 * 10];		// 저장할 데이터 생성.
+	memset(buffer,0,size);
 	for(int ix = 0; ix < count; ++ix)
 	{
 		// 각 계좌별로 문자열 데이터로 직렬화.
@@ -91,14 +92,24 @@ void PlayHistory::Load(const char * filename)
 	fopen_s(&file,filename,"rb");
 	if(file)
 	{
+		fseek(file,0,SEEK_END);
+		size_t length = ftell(file);
+		if(length == 0)
+		{
+			fclose(file);
+			return;
+		}
+
+		rewind(file);
+
 		// 파일에서 읽은 데이터를 임시 저장할 버퍼.
-		char buffer[256];
+		char buffer[2048];
 		while(!feof(file))
 		{
 			std::cout << "\n 파일 로드 \n";
 
 			// 한 줄씩 읽기.
-			fgets(buffer,256,file);
+			fgets(buffer,2048,file);
 
 			// 정보 변수.
 			int type = 1111;
@@ -112,7 +123,7 @@ void PlayHistory::Load(const char * filename)
 
 			sscanf_s (
 				buffer
-				,"%d - 이름 : %s | 코멘트 : %s | 플레이타임: %s | 플레이 종료 시간: %s --------------------------- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d )"
+				,"%d - 이름 : %s, 코멘트 : %s,플레이 타임: %s,플레이 시간: %s  --- 총 점수 : %d ( 파괴 수: %d , 회피 수: %d ) \n"
 				//,"%d - name : %s | comment : %s | playTime: %s | EndTime: %s --------------------------- totalScore : %d ( Hit Count: %d , Dodge Count: %d )"
 				,&type,name,256,comment,256,playTime,256,endTime,256,&totalScore,&hitCount,&dodgeScore
 			);
