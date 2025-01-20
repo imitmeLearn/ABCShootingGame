@@ -18,7 +18,11 @@ public:
 		//너비 설정
 		width = (int)strlen(image);
 
-		index= (int)image;
+		char c = image[0];
+
+		//std::cout<<" 그리기 확인 : "<<c ;
+		index= (int)c;
+		//std::cout<<"\n 그리기 확인 : "<<index;
 	}
 
 private:

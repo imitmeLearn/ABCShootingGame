@@ -135,18 +135,32 @@ GameLevel_ABC::GameLevel_ABC()
 	fclose(file);		//파일 닫기
 
 	//슈터
-	auto start_a = "A";
+	int inta = 'A';
 	for(DrawableActor* shooter:shooters)
 	{
-		//shooter->SetReImage((char*)start_A++);
-		dynamic_cast<Shooter*>(shooter)->SetReImage(start_a);
+		char* shooterText = new char[2]; // 동적 메모리 할당
+		shooterText[0] = (char)inta; // 첫 번째 문자
+		shooterText[1] = '\0';       // null 문자 추가
+
+		dynamic_cast<Shooter*>(shooter)->SetReImage(shooterText);
+
+		delete[] shooterText; // 메모리 해제
+
+		inta++;
 	}
 
-	auto start_A = "a";
+	int start_A = 'a';
 	for(DrawableActor* stepper:steppers)
 	{
-		dynamic_cast<Stepper*>(stepper)->SetReImage(start_A);
-		//start_A++;
+		char* shooterText = new char[2]; // 동적 메모리 할당
+		shooterText[0] = (char)start_A; // 첫 번째 문자
+		shooterText[1] = '\0';       // null 문자 추가
+
+		dynamic_cast<Stepper*>(stepper)->SetReImage(shooterText);
+
+		delete[] shooterText; // 메모리 해제
+
+		start_A++;
 	}
 }
 

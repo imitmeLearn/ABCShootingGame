@@ -18,7 +18,7 @@ public:
 		//너비 설정
 		width = (int)strlen(image);
 
-		index= (int)image;
+		index= (int)(char)image[0];
 	}
 
 private:
