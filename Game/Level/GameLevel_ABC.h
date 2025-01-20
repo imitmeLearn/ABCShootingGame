@@ -27,6 +27,9 @@ public:
 	Vector2 GetMaxXY();
 	Vector2 SetMaxXY();
 
+	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
+	Actor* CanPlayerShoot(const Vector2& position);
+
 private:
 	char* name = nullptr;		// 플레이어 이름
 	char* comment= nullptr;		// 플레이어 코멘트

@@ -365,3 +365,32 @@ Vector2 GameLevel_ABC::SetMaxXY()
 
 	return  maxXY= Vector2(maxX,maxY);
 }
+
+Actor* GameLevel_ABC::CanPlayerShoot(const Vector2 & position)
+{
+	if(isGameClear)
+	{
+		return nullptr;
+	}
+
+	DrawableActor* searchedActor = nullptr;	// 현위치에 기믹이 있는지
+	for(auto* actor : steppers)
+	{
+		if(actor->Position() == position)
+		{
+			searchedActor = actor;
+			break;
+		}
+	}
+	if(searchedActor == nullptr)
+	{
+		return nullptr;
+	}
+
+	if(searchedActor->As<Stepper>())
+	{
+		return dynamic_cast<Actor*> (searchedActor); //@세윤쌤 : 이렇게 막 형변환 해도 됨?
+	}
+
+	return nullptr;
+}

@@ -56,10 +56,15 @@ void Player_ABC::Update(float deltaTime)
 
 	if(Engine::Get().GetKeyDown(VK_SPACE))
 	{
-		//Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
-		Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
+		if(nullptr != refLevel->CanPlayerShoot(position))
+		{
+			Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
 
-		ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-		refLevel->SetActors_Bullets(abcBullet);
+			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+			refLevel->SetActors_Bullets(abcBullet);
+		} else
+
+		{
+		}
 	}
 }
