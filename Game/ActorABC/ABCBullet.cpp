@@ -1,8 +1,6 @@
 ﻿#include "ABCBullet.h"
 
-//_Column
-
-ABCBullet::ABCBullet(const Vector2 & position)
+ABCBullet::ABCBullet(const Vector2 & position,GameLevel_ABC* level)
 	:DrawableActor("|")
 {
 	this -> position = position;
@@ -10,6 +8,8 @@ ABCBullet::ABCBullet(const Vector2 & position)
 	xPosition = (float)position.x;
 
 	color = Color::White;
+
+	refLevel = level;
 }
 
 void ABCBullet::Update(float deltaTime)
@@ -32,13 +32,14 @@ void ABCBullet::Update(float deltaTime)
 		position.y = (int)yPosition;
 	}
 
-	if(position.y < 0)
+	if(position.y < 0 || position.y > refLevel->GetMaxXY().y)
 	{
 		Destroy();
 		return;
 	}
 
-	if(position.x < 0)
+	//if(position.x < 0)
+	if(position.x < 0|| position.x > refLevel->GetMaxXY().x)
 	{
 		Destroy();
 		return;

@@ -1,11 +1,12 @@
 ﻿#pragma once
 #include <Actor/DrawableActor.h>
+#include <Level/GameLevel_ABC.h>
 
 class ABCBullet: public DrawableActor
 {
 	RTTI_DECLARATIONS(ABCBullet,DrawableActor)
 public:
-	ABCBullet(const Vector2& position);
+	ABCBullet(const Vector2& position,GameLevel_ABC* level);
 	ABCBullet(bool isRow,const Vector2& position);
 	virtual void Update(float deltaTime) override;
 	void SetReImage(const char* image);
@@ -17,4 +18,6 @@ private:
 	float xPosition = 0.f;
 
 	bool isRow= false;
+
+	GameLevel_ABC* refLevel = nullptr;
 };

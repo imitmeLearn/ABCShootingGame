@@ -162,6 +162,8 @@ GameLevel_ABC::GameLevel_ABC()
 
 		start_A++;
 	}
+
+	SetMaxXY();
 }
 
 void GameLevel_ABC::Update(float deltaTime)
@@ -264,7 +266,10 @@ void GameLevel_ABC::Draw()
 
 		if(shouldDraw)
 		{
-			bullet -> Draw();
+			if(bullet->IsActive())
+			{
+				bullet -> Draw();
+			}
 		}
 	}
 
@@ -336,4 +341,27 @@ void GameLevel_ABC::SetActors_Bullets(Actor *&& actor)
 {
 	actors.PushBack(actor);
 	bullets.PushBack((DrawableActor*)actor);
+}
+
+Vector2 GameLevel_ABC::GetMaxXY()
+{
+	return maxXY;
+}
+
+Vector2 GameLevel_ABC::SetMaxXY()
+{
+	float maxX = 0.f;
+	float maxY = 0.f;
+	for(auto* actor:map)		//맵 그리기
+	{
+		if(maxX < actor->Position().x){
+			maxX = actor->Position().x;
+		}
+
+		if(maxY < actor->Position().y){
+			maxY = actor->Position().y;
+		}
+	}
+
+	return  maxXY= Vector2(maxX,maxY);
 }

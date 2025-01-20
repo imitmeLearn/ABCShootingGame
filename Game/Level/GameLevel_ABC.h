@@ -23,6 +23,10 @@ public:
 	//액터 추가 0 그리는 용도?
 	void SetActors_Bullets(Actor *&& actor);
 
+	//화면 큰 경계 찾기
+	Vector2 GetMaxXY();
+	Vector2 SetMaxXY();
+
 private:
 	char* name = nullptr;		// 플레이어 이름
 	char* comment= nullptr;		// 플레이어 코멘트
@@ -34,4 +38,8 @@ private:
 
 	Player_ABC* player_ABC = nullptr;	//플레이어 액터
 	bool isGameClear = false;	//게임 클리어 변수
+
+	int maxX = 0;
+	int maxY = 0;
+	Vector2 maxXY;
 };
