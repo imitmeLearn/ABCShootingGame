@@ -74,8 +74,9 @@ void Player_ABC::Update(float deltaTime)
 		{
 			Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
 
-			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-			refLevel->SetActors_Bullets(abcBullet);
+			//ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+			//refLevel->SetActors_Bullets(abcBullet);
+			refLevel->AddActor(new ABCBullet(bulletPosition,refLevel));
 		}
 		break;
 		case StepperType::OtherPos:
@@ -90,7 +91,8 @@ void Player_ABC::Update(float deltaTime)
 			Vector2 bulletPosition(actor->Position().x + (width/2),actor->Position().y  /*-1*/);
 
 			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-			refLevel->SetActors_Bullets(abcBullet);
+			//refLevel->SetActors_Bullets(abcBullet);
+			refLevel->AddActor(abcBullet);
 		}
 		break;
 		case StepperType::AllRight:

@@ -8,12 +8,24 @@
 #include "Actorabc/Player_ABC.h"
 #include "Actorabc/Shooter.h"
 #include "Actorabc/Stepper.h"
+#include "ActorABC/Enemy.h"
+#include "ActorABC/ABCBullet.h"
 
 #ifdef UNICODE
 #define OutputDebugString  OutputDebugStringW
 #else
 #define OutputDebugString  OutputDebugStringA
 #endif // !UNICODE
+
+static const char* enemyType[]
+{
+	";(^);",
+	"zZTZz",
+	"oO&Oo",
+	"<=-=>",
+	")~O~(",
+	"[[0]]"
+};
 
 GameLevel_ABC::GameLevel_ABC()
 {
@@ -100,9 +112,9 @@ GameLevel_ABC::GameLevel_ABC()
 
 		else if(mapChar == 'S')
 		{
-			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			actors.PushBack(ground);
-			map.PushBack(ground);	//랜더 제어 목적으로!
+			//Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			//actors.PushBack(ground);
+			//map.PushBack(ground);	//랜더 제어 목적으로!
 
 			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition));
 			actors.PushBack(shooter);
@@ -195,13 +207,37 @@ void GameLevel_ABC::myDebugMsg(const char * format,...)
 void GameLevel_ABC::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
+
+	SpawnEnemy(deltaTime);
+
+	//ProcessCollisionPlayerBulletandEnemy();
+	//ProcessCollisionPlayerAndEnemyBullet();
 }
 
 void GameLevel_ABC::Draw()
 {
 	//std::cout << name << comment <<"\n";
 
-	for(auto* actor:map)		//맵 그리기
+	// 적 리스트 초기화.
+	List<Enemy*> enemies;
+	List<ABCBullet*> bullets;
+	for(auto* actor : actors)
+	{
+		Enemy* enemy = actor->As<Enemy>();
+		if(enemy)
+		{
+			enemies.PushBack(enemy);
+			continue;
+		}
+
+		ABCBullet* bullet = actor->As<ABCBullet>();
+		if(bullet)
+		{
+			bullets.PushBack(bullet);
+		}
+	}
+
+	for(auto* actor : map)		//맵 그리기
 	{
 		if(actor-> Position() == player_ABC->Position())	//플레이어 위치 확인
 		{
@@ -209,14 +245,25 @@ void GameLevel_ABC::Draw()
 		}
 
 		bool shouldDraw = true;
-		/*	for(auto* box : boxes)
+		if(enemies.Size() > 0)
+		{
+			for(auto* enemy : enemies)
 			{
-				if(actor->Position() == box->Position())
+				if((actor->Position().x -  enemy->Position().x) < enemy->Width()
+					&& (actor->Position().x -  enemy->Position().x) >= 0
+					)
+				{
+					shouldDraw = false;
+					break; //continue;  //break; ?? continue적이 또 있을 수 있나?
+				}
+
+				/*if(actor->Position() == enemy->Position())
 				{
 					shouldDraw = false;
 					break;
-				}
-			}*/
+				}*/
+			}
+		}
 
 		if(shouldDraw)
 		{
@@ -224,32 +271,8 @@ void GameLevel_ABC::Draw()
 		}
 	}
 
-	//슈터그리기
-	for(auto* shooter:shooters)
-	{
-		if(shooter-> Position() == player_ABC->Position())	//플레이어 위치 확인
-		{
-			continue;
-		}
-
-		bool shouldDraw = true;
-		/*	for(auto* box : boxes)
-			{
-				if(shooter->Position() == box->Position())
-				{
-					shouldDraw = false;
-					break;
-				}
-			}*/
-
-		if(shouldDraw)
-		{
-			shooter -> Draw();
-		}
-	}
-
 	//푸터그리기
-	for(auto* stepper:steppers)
+	for(auto* stepper : steppers)
 	{
 		if(stepper-> Position() == player_ABC->Position())	//플레이어 위치 확인
 		{
@@ -273,12 +296,65 @@ void GameLevel_ABC::Draw()
 	}
 
 	//총알 그리기
-	for(auto* bullet:bullets)
+	if(bullets.Size() > 0)
 	{
-		if(bullet-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		for(auto* bullet : bullets)
+		{
+			if(bullet-> Position() == player_ABC->Position())	//플레이어 위치 확인
+			{
+				continue;
+			}
+
+			bool shouldDraw = true;
+			/*for(auto* shooter : shooters)
+			{
+				if(bullet->Position() == shooter->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+			if(shouldDraw)
+			{
+				if(bullet->IsActive())
+				{
+					bullet -> Draw();
+				}
+			}
+		}
+	}
+
+	//슈터그리기
+	for(auto* shooter : shooters)
+	{
+		if(shooter-> Position() == player_ABC->Position())	//플레이어 위치 확인
 		{
 			continue;
 		}
+
+		bool shouldDraw = true;
+		/*	for(auto* box : boxes)
+			{
+				if(shooter->Position() == box->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+		if(shouldDraw)
+		{
+			shooter -> Draw();
+		}
+	}
+	//적 그리기
+	for(auto* enemy:enemies)
+	{
+		//if(bullet-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		//{
+		//	continue;
+		//}
 
 		bool shouldDraw = true;
 		/*	for(auto* box : boxes)
@@ -292,9 +368,9 @@ void GameLevel_ABC::Draw()
 
 		if(shouldDraw)
 		{
-			if(bullet->IsActive())
+			if(enemy->IsActive())
 			{
-				bullet -> Draw();
+				enemy -> Draw();
 			}
 		}
 	}
@@ -363,10 +439,10 @@ bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
 	return false;
 }
 
-void GameLevel_ABC::SetActors_Bullets(Actor *&& actor)
+void GameLevel_ABC::SetActors_Bullets(DrawableActor* actor)
 {
 	actors.PushBack(actor);
-	bullets.PushBack((DrawableActor*)actor);
+	//bullets.PushBack(actor);
 }
 
 Vector2 GameLevel_ABC::GetMaxXY()
@@ -380,16 +456,18 @@ Vector2 GameLevel_ABC::SetMaxXY()
 	float maxY = 0.f;
 	for(auto* actor:map)		//맵 그리기
 	{
-		if(maxX < actor->Position().x){
-			maxX = actor->Position().x;
+		if(maxX < (float)actor->Position().x)
+		{
+			maxX = (float)actor->Position().x;
 		}
 
-		if(maxY < actor->Position().y){
-			maxY = actor->Position().y;
+		if(maxY < (float)actor->Position().y)
+		{
+			maxY = (float)actor->Position().y;
 		}
 	}
 
-	return  maxXY= Vector2(maxX,maxY);
+	return  maxXY= Vector2((int)maxX,(int)maxY);
 }
 
 Actor* GameLevel_ABC::SteponActor(const Vector2 & position)
@@ -415,10 +493,32 @@ Actor* GameLevel_ABC::SteponActor(const Vector2 & position)
 
 	if(searchedActor->As<Stepper>())
 	{
-		return dynamic_cast<Actor*> (searchedActor); //@세윤쌤 : 이렇게 막 형변환 해도 됨?
+		return searchedActor; //@세윤쌤 : 이렇게 막 형변환 해도 됨? ->OK. 업캐스팅이라서 문제 없습니다.
 	}
 
 	return nullptr;
+}
+
+void GameLevel_ABC::SpawnEnemy(float deltaTime)
+{
+	static float	elapsedTime = 0.f;
+	static float	spawnTime = RandomPercent(1.f,3.f);
+
+	elapsedTime += deltaTime;
+	if(elapsedTime < spawnTime)
+	{
+		return;
+	}
+
+	elapsedTime = 0.0f;
+	spawnTime = RandomPercent(1.f,3.f);
+
+	static int length = sizeof(enemyType)/sizeof(enemyType[0]);
+	int index = Random(0,length -1);
+	Enemy* enemy = new Enemy(enemyType[index],Random(5,15),this);
+	AddActor(enemy);
+	//actors.PushBack(emeny);
+	//enemies.PushBack(emeny);
 }
 
 Actor* GameLevel_ABC::GetShooterActor(int index)
@@ -434,4 +534,6 @@ Actor* GameLevel_ABC::GetShooterActor(int index)
 			return shooter;
 		}
 	}
+
+	return nullptr;
 }

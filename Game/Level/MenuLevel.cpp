@@ -61,6 +61,4 @@ void MenuLevel::Draw()
 		SetColor(ix == currentIndex ? selectedColor : unselectedColor);
 		Log("%s\n",menuItems[ix]->menuText);
 	}
-
-	std::cout << "MenuLevel::Draw \n";
 }

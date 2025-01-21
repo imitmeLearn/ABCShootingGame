@@ -29,7 +29,7 @@ public:
 	bool CanPlayerMove(const Vector2& position);
 
 	//액터 추가 0 그리는 용도?
-	void SetActors_Bullets(Actor *&& actor);
+	void SetActors_Bullets(DrawableActor* actor);
 
 	//화면 큰 경계 찾기
 	Vector2 GetMaxXY();
@@ -41,6 +41,8 @@ public:
 	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
 	Actor* SteponActor(const Vector2& position);
 
+	void SpawnEnemy(float deltaTime);
+
 private:
 	char* name = nullptr;		// 플레이어 이름
 	char* comment= nullptr;		// 플레이어 코멘트
@@ -48,7 +50,8 @@ private:
 	List <DrawableActor*> map;	//벽 땅 액터 배열
 	List <DrawableActor*> shooters;	//벽 땅 액터 배열
 	List <DrawableActor*> steppers;	//벽 땅 액터 배열
-	List <DrawableActor*> bullets;	//벽 땅 액터 배열
+	//List <DrawableActor*> bullets;	//벽 땅 액터 배열
+	//List <DrawableActor*> enemies;	//벽 땅 액터 배열
 
 	Player_ABC* player_ABC = nullptr;	//플레이어 액터
 	bool isGameClear = false;	//게임 클리어 변수
