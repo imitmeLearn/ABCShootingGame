@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Core.h"
 
 class ENGINE_API Timer		//초시계 클래스
@@ -23,6 +23,11 @@ public:
 	inline void SetTime(float targetTime)
 	{
 		this->targetTime = targetTime;
+	}
+
+	float GetElapsedTime()
+	{
+		return elapsedTime;
 	}
 private:
 	float elapsedTime = 0.f;

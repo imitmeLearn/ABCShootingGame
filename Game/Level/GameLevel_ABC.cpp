@@ -11,6 +11,8 @@
 #include "ActorABC/Enemy.h"
 #include "ActorABC/ABCBullet.h"
 
+#include "Engine/Timer.h"
+
 #ifdef UNICODE
 #define OutputDebugString  OutputDebugStringW
 #else
@@ -228,12 +230,30 @@ void GameLevel_ABC::Update(float deltaTime)
 	SpawnEnemy(deltaTime);
 
 	ProcessCollisionPlayerBulletandEnemy();
+	ProcessCollisionPlayerAndEnemy();
 	//ProcessCollisionPlayerAndEnemyBullet();
+
+	if(isGameOver)
+	{
+		static Timer timer(0.1f);	//타이머
+		timer.Update(deltaTime);
+		if(!timer.IsTimeOut())
+		{
+			return;
+		}
+
+		Engine::Get().SetCursorPosition(0,GetMaxXY().y+2);	//커서이동
+		Log("======  ABC SHOOTING GameOVER  ====== \n");
+		Sleep(1000);				//쓰레드 정지
+		//Engine::Get().QuitGame();	//게임 종료 처리
+	}
 }
 
 void GameLevel_ABC::Draw()
 {
 	//std::cout << name << comment <<"\n";
+	Engine::Get().SetCursorPosition(0,0);			//1단계 : 콘솔 좌표 옮기기'
+	DrawPlayerInfo();
 
 	// 적 리스트 초기화.
 	List<Enemy*> enemies;
@@ -411,7 +431,7 @@ void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
 
 bool GameLevel_ABC::CanPlayerMove(const Vector2& position)
 {
-	if(isGameClear)
+	if(isGameOver)
 	{
 		return false;
 	}
@@ -476,7 +496,7 @@ Vector2 GameLevel_ABC::SetMaxXY()
 
 Actor* GameLevel_ABC::SteponActor(const Vector2 & position)
 {
-	if(isGameClear)
+	if(isGameOver)
 	{
 		return nullptr;
 	}
@@ -588,4 +608,8 @@ void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
 			}
 		}
 	}
+}
+
+void GameLevel_ABC::ProcessCollisionPlayerAndEnemy()
+{
 }

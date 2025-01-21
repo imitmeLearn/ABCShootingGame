@@ -63,16 +63,12 @@ void Game::StartGame_Sokoban()
 {
 	system("cls");
 	showMenu = !showMenu;
-	if(showMenu ||  !CheckPlaying(gameLevel_ABC))
+	if(showMenu ||  !CheckPlaying(gameLevel_sokoban))
 	{
 		Game::Get().SetShowMenu(false);
 
 		backLevel = mainLevel;
 		mainLevel = gameLevel_sokoban;
-	}
-
-	else	if(!CheckPlaying(gameLevel_sokoban))
-	{
 	}
 
 	else
@@ -133,6 +129,10 @@ void Game::StartGame_ABC_TESTER()
 		level->SetPlayer("TESTER","comment : winwin");
 	}
 
+	if(level->IsGameOver())
+	{
+	}
+
 	StartGame_ABC();
 }
 
@@ -144,11 +144,20 @@ void Game::StartGame_ABC()
 	showMenu = !showMenu;
 	if(showMenu ||!CheckPlaying(gameLevel_ABC))
 	{
-		std::cout << " StartGame_ABC  ";
-		Game::Get().SetShowMenu(false);
+		auto level = gameLevel_ABC->As<GameLevel_ABC>();
+
+		if(level->IsGameOver())
+		{
+			delete gameLevel_sokoban;
+			gameLevel_sokoban = nullptr;
+
+			gameLevel_sokoban = new GameLevel_ABC();
+		}
 
 		backLevel = mainLevel;
 		mainLevel = gameLevel_ABC;
+
+		Game::Get().SetShowMenu(false);
 	}
 
 	else

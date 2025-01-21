@@ -42,10 +42,35 @@ public:
 	//플레이어 탄약과 적 충돌처리
 	void ProcessCollisionPlayerBulletandEnemy();
 
+	//플레이어와 적 충돌처리
+	void ProcessCollisionPlayerAndEnemy();
+
 	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
 	Actor* SteponActor(const Vector2& position);
 
 	void SpawnEnemy(float deltaTime);
+
+	char* GetName ()
+	{
+		return name;
+	}
+
+	int GetTotalScore()
+	{
+		return totalScore;
+	}
+
+	void DrawPlayerInfo()
+	{
+		std::cout << " StartGame_ABC SHOOTING  \n";
+		std::cout << " 플레이어 이름 :   " << GetName()
+			<< "   플레이 시간 :  "
+			<< "   점수 :  " << GetTotalScore();
+	}
+
+	bool IsGameOver(){
+		return	isGameOver;
+	}
 
 private:
 	char* name = nullptr;		// 플레이어 이름
@@ -58,7 +83,7 @@ private:
 	//List <DrawableActor*> enemies;	//벽 땅 액터 배열
 
 	Player_ABC* player_ABC = nullptr;	//플레이어 액터
-	bool isGameClear = false;	//게임 클리어 변수
+	bool isGameOver = false;	//게임 클리어 변수
 
 	int maxX = 0;
 	int maxY = 0;
