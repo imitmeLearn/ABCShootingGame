@@ -541,3 +541,51 @@ Actor* GameLevel_ABC::GetShooterActor(int index)
 
 	return nullptr;
 }
+
+void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
+{
+	List<ABCBullet*> bullets;	//탄약 및 적 캐릭터 배열 선언.
+	List<Enemy*> enemies;		//탄약 및 적 캐릭터 배열 선언.
+
+	for(Actor* actor:actors)	//레벨에 배치된 액터를 순회하면서, 리스트 채우기.
+	{
+		ABCBullet* bullet = actor -> As<ABCBullet>();		//탄약 으로 형변환 후 확인해서, 리스트 채우기
+		if(bullet)
+		{
+			bullets.PushBack(bullet);
+			continue;
+		}
+
+		Enemy* enemy = actor->As<Enemy>();		//적 으로 형변환 후 확인해서, 리스트 채우기
+		if(enemy)
+		{
+			enemies.PushBack(enemy);
+		}
+	}
+
+	if(bullets.Size()==0 || enemies.Size() == 0) //예외처리 : 비교대상 없으면, 충돌 연산 할 필요 없어.
+	{
+		return;
+	}
+
+	for(ABCBullet* bullet:bullets)		//두 배열을 순회하면서, 충돌처리
+	{
+		for(Enemy* enemy : enemies)
+		{
+			if(!enemy ->IsActive())					// 적이 비활성화 상태라면 건너뛰기.
+			{
+				continue;
+			}
+
+			if(enemy -> Intersect (*bullet))	  // 충돌 처리.
+			{
+				enemy -> Destroy();			// 충돌했으면 적 제거.
+				bullet->Destroy();			// 탄약도 제거.
+				totalScore += hitScore;		//점수 추가
+				hitCount++;					//hit 수 증가
+
+				myDebugMsg("totalScore  %d, hitCount %d",totalScore,hitCount);
+			}
+		}
+	}
+}
