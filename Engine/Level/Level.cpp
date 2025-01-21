@@ -1,4 +1,4 @@
-#include "PreCompiledHeader.h"
+﻿#include "PreCompiledHeader.h"
 
 #include "Level.h"
 //#include "../Actor/Actor.h"
@@ -17,7 +17,8 @@ Level::~Level()
 void Level::AddActor(Actor* newActor)
 {
 	//actors.PushBack(newActor);
-	addRequestedActor = newActor;
+	//addRequestedActor = newActor;
+	addRequestedActor.PushBack(newActor);
 }
 
 void Level::ProcessAddedandDestroyedActor()
@@ -34,10 +35,14 @@ void Level::ProcessAddedandDestroyedActor()
 
 		++ix;				//똑같은 인덱스가, 밀리니까. 당겨지니까, 인덱스 고정해서, 다시 처리- 비교처리
 	}
-	if(addRequestedActor)
+	if(addRequestedActor.Size())
 	{
-		actors.PushBack(addRequestedActor);
-		addRequestedActor = nullptr;
+		for(Actor* actor : addRequestedActor)
+		{
+			actors.PushBack(actor);
+		}
+
+		addRequestedActor.Clear();
 	}
 }
 

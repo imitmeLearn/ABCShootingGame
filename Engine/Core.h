@@ -1,4 +1,6 @@
 ﻿#pragma once
+#pragma warning (disable : 4251)
+
 #include <iostream>
 
 #if ENGINE_BUILD_DLL
