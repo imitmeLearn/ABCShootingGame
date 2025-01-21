@@ -13,7 +13,7 @@ public:
 	List()
 		:capacity(2)
 	{
-		data = new T[capacity];
+		data = new T[capacity];  //@세윤쌤 : 여기도 메모리 릭 오류
 		memset(data,0,sizeof(T)*capacity);
 	}
 
@@ -51,7 +51,7 @@ public:
 	{
 		size = 0;
 		capacity = 2;
-		data = new T[capacity];
+		data = new T[capacity];    //@세윤쌤 : 여기도 메모리 릭 오류
 		memset(data,0,sizeof(T)*capacity);
 	}
 

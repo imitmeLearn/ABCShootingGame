@@ -204,7 +204,7 @@ GameLevel_ABC::~GameLevel_ABC()
 		this->comment = nullptr;
 	}
 
-	enemy
+	//enemy
 }
 
 void GameLevel_ABC::myDebugMsg(const char * format,...)
