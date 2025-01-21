@@ -45,7 +45,10 @@ public:
 	{
 		return type;
 	}
-
+	int GetIndex()
+	{
+		return index;
+	}
 private:
 	int index = -1;
 	StepperType type = StepperType::None;

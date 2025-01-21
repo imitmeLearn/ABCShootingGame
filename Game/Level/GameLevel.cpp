@@ -64,7 +64,7 @@ GameLevel::GameLevel()
 		if(mapChar == '1')
 		{
 			//	actors.PushBack(new Wall(Vector2(xPosition,yPosition)));
-			Wall * wall = new Wall(Vector2(xPosition,yPosition));
+			Wall* wall = new Wall(Vector2(xPosition,yPosition));
 			actors.PushBack(wall);
 			map.PushBack(wall);
 		}

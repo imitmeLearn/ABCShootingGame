@@ -57,24 +57,48 @@ void Player_ABC::Update(float deltaTime)
 
 	if(Engine::Get().GetKeyDown(VK_SPACE))
 	{
-		Actor* actor = refLevel->CanPlayerShoot(position);
+		Actor* actor = refLevel->SteponActor(position);
 
-		if(nullptr != actor)
+		if(nullptr == actor)
 		{
-			Stepper* curr =	dynamic_cast<Stepper*> (actor); //@세윤쌤 : 이렇게 막 형변환 해도 됨?
-
-			if(curr->GetType() == StepperType::CurrPos)
-			{
-				Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
-
-				ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
-				refLevel->SetActors_Bullets(abcBullet);
-			}
+			return;
 		}
 
-		else
+		Stepper* curr =	dynamic_cast<Stepper*> (actor); //@세윤쌤 : 이렇게 막 형변환 해도 됨?
 
+		switch(curr->GetType())
 		{
+		case StepperType::None:
+		break;
+		case StepperType::CurrPos:
+		{
+			Vector2 bulletPosition(position.x + (width/2),position.y  /*-1*/);
+
+			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+			refLevel->SetActors_Bullets(abcBullet);
+		}
+		break;
+		case StepperType::OtherPos:
+		{
+			actor = refLevel->GetShooterActor(curr->GetIndex());
+			if(actor == nullptr)
+			{
+				refLevel->myDebugMsg("GetShooterActor-  인덱스에 해당하는 객체 없음\n"); //@지우기 - 확인후
+
+				return;
+			}
+			Vector2 bulletPosition(actor->Position().x + (width/2),actor->Position().y  /*-1*/);
+
+			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+			refLevel->SetActors_Bullets(abcBullet);
+		}
+		break;
+		case StepperType::AllRight:
+		break;
+		case StepperType::AllLeft:
+		break;
+		default:
+		break;
 		}
 	}
 }

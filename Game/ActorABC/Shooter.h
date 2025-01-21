@@ -19,6 +19,11 @@ public:
 		index= (int)(char)image[0];
 	}
 
+	int GetIndex()
+	{
+		return index;
+	}
+
 private:
 	int index = -1;
 };
