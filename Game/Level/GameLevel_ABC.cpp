@@ -227,13 +227,17 @@ void GameLevel_ABC::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	SpawnEnemy(deltaTime);
+	if(!isGameOver)
+	{
+		SpawnEnemy(deltaTime);
 
-	ProcessCollisionPlayerBulletandEnemy();
-	ProcessCollisionPlayerAndEnemy();
-	//ProcessCollisionPlayerAndEnemyBullet();
+		ProcessCollisionPlayerBulletandEnemy();
+		ProcessCollisionPlayerAndEnemy();
+		//ProcessCollisionPlayerAndEnemyBullet();
+	}
 
-	if(isGameOver)
+	//게임 종료
+	else
 	{
 		static Timer timer(0.1f);	//타이머
 		timer.Update(deltaTime);
@@ -244,7 +248,7 @@ void GameLevel_ABC::Update(float deltaTime)
 
 		Engine::Get().SetCursorPosition(0,GetMaxXY().y+2);	//커서이동
 		Log("======  ABC SHOOTING GameOVER  ====== \n");
-		Sleep(1000);				//쓰레드 정지
+		Sleep(100);				//쓰레드 정지
 		//Engine::Get().QuitGame();	//게임 종료 처리
 	}
 }
@@ -413,7 +417,10 @@ void GameLevel_ABC::Draw()
 		}
 	}
 
-	player_ABC->Draw();			//플레이어 그리기
+	if(player_ABC)
+	{
+		player_ABC->Draw();			//플레이어 그리기
+	}
 }
 
 void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
@@ -612,4 +619,39 @@ void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
 
 void GameLevel_ABC::ProcessCollisionPlayerAndEnemy()
 {
+	Player_ABC* player = nullptr;
+	List<Enemy*> enemies;
+
+	for(Actor* actor:actors)
+	{
+		if(!player)
+		{
+			player = actor->As<Player_ABC>();
+			//	continue;	//@세윤쌤 : 안써도 되는거 아닌가?
+		}
+
+		Enemy* enemy = actor -> As<Enemy>();
+		if(enemy)
+		{
+			enemies.PushBack(enemy);
+			//	continue;	//@세윤쌤 : 안써도 되는거 아닌가?
+		}
+	}
+
+	if(enemies.Size()==0 || player == nullptr) //예외처리
+	{
+		return;
+	}
+
+	for(Enemy* enemy: enemies)
+	{
+		if(player -> Intersect(*enemy))
+		{
+			isGameOver = true;
+
+			//player -> Destroy();
+
+			//?
+		}
+	}
 }
