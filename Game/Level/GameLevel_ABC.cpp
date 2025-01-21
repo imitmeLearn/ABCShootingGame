@@ -9,6 +9,12 @@
 #include "Actorabc/Shooter.h"
 #include "Actorabc/Stepper.h"
 
+#ifdef UNICODE
+#define OutputDebugString  OutputDebugStringW
+#else
+#define OutputDebugString  OutputDebugStringA
+#endif // !UNICODE
+
 GameLevel_ABC::GameLevel_ABC()
 {
 	Engine::Get().SetCursorType(CursorType::NoCursor);//커서 감추기
@@ -170,6 +176,20 @@ GameLevel_ABC::GameLevel_ABC()
 	}
 
 	SetMaxXY();
+}
+
+void GameLevel_ABC::myDebugMsg(const char * format,...)
+{
+	#ifdef _DEBUG
+	char str[128];
+	va_list args;
+	va_start(args,format);
+	vsnprintf(str,sizeof(str),format,args);
+	//OutputDebugString(str);
+	OutputDebugStringA(str);
+	//OutputDebugStringW(str);
+	va_end(args);
+	#endif
 }
 
 void GameLevel_ABC::Update(float deltaTime)
@@ -372,7 +392,7 @@ Vector2 GameLevel_ABC::SetMaxXY()
 	return  maxXY= Vector2(maxX,maxY);
 }
 
-Actor* GameLevel_ABC::CanPlayerShoot(const Vector2 & position)
+Actor* GameLevel_ABC::SteponActor(const Vector2 & position)
 {
 	if(isGameClear)
 	{
@@ -399,4 +419,19 @@ Actor* GameLevel_ABC::CanPlayerShoot(const Vector2 & position)
 	}
 
 	return nullptr;
+}
+
+Actor* GameLevel_ABC::GetShooterActor(int index)
+{
+	for(auto* shooter:shooters)
+	{
+		Shooter* curr =	dynamic_cast<Shooter*> (shooter);
+
+		if(curr->GetIndex() == index-32)
+		{
+			//myDebugMsg("Index value: %d\n",index); //@지우기 - 확인후
+
+			return shooter;
+		}
+	}
 }

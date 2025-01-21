@@ -1,5 +1,10 @@
 ﻿#pragma once
 
+#include <windows.h> // OutputDebugString 함수 사용
+#include <cstdarg>   // va_list, va_start, va_end
+#include <cstdio>    // vsnprintf
+#include <cwchar> // vswprintf
+
 #include "Level/Level.h"
 #include <Math/Vector2.h>
 
@@ -11,6 +16,9 @@ class GameLevel_ABC: public Level
 
 public:
 	GameLevel_ABC();
+
+	// 출력창에 디버그 보여주기 : https://eteo.tistory.com/673
+	void myDebugMsg(const char* format,...);
 
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
@@ -27,8 +35,11 @@ public:
 	Vector2 GetMaxXY();
 	Vector2 SetMaxXY();
 
+	//인덱트에 해당하는 슈터 액터
+	Actor* GetShooterActor(int index);
+
 	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
-	Actor* CanPlayerShoot(const Vector2& position);
+	Actor* SteponActor(const Vector2& position);
 
 private:
 	char* name = nullptr;		// 플레이어 이름
