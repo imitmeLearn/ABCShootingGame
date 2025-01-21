@@ -11,7 +11,7 @@ DrawableActor::DrawableActor(const char* image)
 	//std::cout<<" 그리기 확인 : "<<&image;
 
 	auto length = strlen(image) + 1;
-	this->image = new char[length];
+	this->image = new char[length]; //@세윤쌤 : 여기서도 메모리 누수 오류
 	strcpy_s(this->image,length,image);
 
 	//너비 설정

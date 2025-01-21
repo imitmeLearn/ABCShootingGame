@@ -203,6 +203,8 @@ GameLevel_ABC::~GameLevel_ABC()
 		delete[] this->comment;
 		this->comment = nullptr;
 	}
+
+	enemy
 }
 
 void GameLevel_ABC::myDebugMsg(const char * format,...)
@@ -517,7 +519,7 @@ void GameLevel_ABC::SpawnEnemy(float deltaTime)
 
 	static int length = sizeof(enemyType)/sizeof(enemyType[0]);
 	int index = Random(0,length -1);
-	Enemy* enemy = new Enemy(enemyType[index],Random(5,15),this);
+	Enemy* enemy = new Enemy(enemyType[index],Random(5,15),this); //@세윤썜 : 여기도 new 했는데, 해제하나요? 블록안에서 만든것들은 언제 해제 하나요?? 여기서 메모리 누수 오류!
 	AddActor(enemy);
 	//actors.PushBack(emeny);
 	//enemies.PushBack(emeny);

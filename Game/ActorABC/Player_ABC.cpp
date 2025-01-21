@@ -90,7 +90,7 @@ void Player_ABC::Update(float deltaTime)
 			}
 			Vector2 bulletPosition(actor->Position().x + (width/2),actor->Position().y  /*-1*/);
 
-			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
+			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  	//@세윤쌤 여기서도 오류	//Engine::Get().AddActor(new ABCBullet(bulletPosition));
 			//refLevel->SetActors_Bullets(abcBullet);
 			refLevel->AddActor(abcBullet);
 		}
