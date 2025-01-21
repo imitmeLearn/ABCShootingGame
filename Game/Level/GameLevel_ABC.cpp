@@ -251,6 +251,7 @@ void GameLevel_ABC::Draw()
 			{
 				if((actor->Position().x -  enemy->Position().x) < enemy->Width()
 					&& (actor->Position().x -  enemy->Position().x) >= 0
+					&& actor->Position().y ==  enemy->Position().y
 					)
 				{
 					shouldDraw = false;
