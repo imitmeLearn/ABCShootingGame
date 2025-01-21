@@ -48,6 +48,11 @@ void ABCBullet::Update(float deltaTime)
 
 void ABCBullet::SetReImage(const char * image)
 {
+	if(this->image)
+	{
+		delete[] this->image;
+	}
+
 	auto length = strlen(image) + 1;
 	this->image = new char[length];
 	strcpy_s(this->image,length,image);

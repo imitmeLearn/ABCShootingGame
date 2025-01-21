@@ -15,10 +15,10 @@ GameLevel::GameLevel()
 	// 맵 파일 불러와 레벨 로드.
 		//파일읽기
 	FILE* file = nullptr;
-	fopen_s(&file,"..\\Assets\\Maps\\Map.txt","rb");	//백슬래시는 2개**
-	fopen_s(&file,"../Assets/Maps/Stage1.txt","rb");		//원슬래시는 1개**
-	fopen_s(&file,"../Assets/Maps/Stage2.txt","rb");		//원슬래시는 1개**
-	fopen_s(&file,"../Assets/Maps/Stage3.txt","rb");		//원슬래시는 1개**
+	//fopen_s(&file,"..\\Assets\\Maps\\Map.txt","rb");	//백슬래시는 2개**
+	//fopen_s(&file,"../Assets/Maps/Stage1.txt","rb");		//원슬래시는 1개**
+	//fopen_s(&file,"../Assets/Maps/Stage2.txt","rb");		//원슬래시는 1개**
+	//fopen_s(&file,"../Assets/Maps/Stage3.txt","rb");		//원슬래시는 1개**
 	fopen_s(&file,"../Assets/Maps/Map.txt","rb");		//원슬래시는 1개**
 
 	if(file == nullptr)

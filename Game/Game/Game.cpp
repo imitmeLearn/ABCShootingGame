@@ -12,6 +12,7 @@ Game::Game()
 	instance = this;
 
 	menuLevel = new MenuLevel();
+	LoadLevel(menuLevel);
 	gameLevel_sokoban = new GameLevel();
 	gameLevel_ABC = new GameLevel_ABC();
 }
@@ -20,17 +21,33 @@ Game::~Game()
 {
 	if(showMenu)
 	{
-		delete backLevel;
 		backLevel = nullptr;
 		mainLevel = nullptr;
 	} else
 	{
-		delete mainLevel;
 		mainLevel = nullptr;
 	}
 
 	delete menuLevel;
 	menuLevel = nullptr;
+
+	if(gameLevel_sokoban)
+	{
+		delete gameLevel_sokoban;
+		gameLevel_sokoban = nullptr;
+	}
+
+	if(gameLevel_ABC)
+	{
+		delete gameLevel_ABC;
+		gameLevel_ABC = nullptr;
+	}
+
+	if(playHistory)
+	{
+		delete playHistory;
+		playHistory = nullptr;
+	}
 }
 
 bool Game::CheckPlaying(Level * nextGameLevel)
@@ -99,13 +116,22 @@ void Game::StartGameSetPlayer_ABC()
 	std::cout << " 시작 전 남기고픈 말은?  ";
 	std::cin >> comment;
 
-	dynamic_cast<GameLevel_ABC*>(gameLevel_ABC)->SetPlayer(name,comment);
+	auto level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
+	if(level)
+	{
+		level->SetPlayer(name,comment);
+	}
 
 	StartGame_ABC();
 }
 void Game::StartGame_ABC_TESTER()
 {
-	dynamic_cast<GameLevel_ABC*>(gameLevel_ABC)->SetPlayer("TESTER","comment : winwin");
+	auto level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
+
+	if(level)
+	{
+		level->SetPlayer("TESTER","comment : winwin");
+	}
 
 	StartGame_ABC();
 }

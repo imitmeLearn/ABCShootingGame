@@ -190,6 +190,21 @@ GameLevel_ABC::GameLevel_ABC()
 	SetMaxXY();
 }
 
+GameLevel_ABC::~GameLevel_ABC()
+{
+	if(this->name != nullptr)
+	{
+		delete[] this->name;
+		this->name = nullptr;
+	}
+
+	if(this->comment != nullptr)
+	{
+		delete[] this->comment;
+		this->comment = nullptr;
+	}
+}
+
 void GameLevel_ABC::myDebugMsg(const char * format,...)
 {
 	#ifdef _DEBUG
@@ -210,7 +225,7 @@ void GameLevel_ABC::Update(float deltaTime)
 
 	SpawnEnemy(deltaTime);
 
-	//ProcessCollisionPlayerBulletandEnemy();
+	ProcessCollisionPlayerBulletandEnemy();
 	//ProcessCollisionPlayerAndEnemyBullet();
 }
 
@@ -227,7 +242,7 @@ void GameLevel_ABC::Draw()
 		if(enemy)
 		{
 			enemies.PushBack(enemy);
-			continue;
+			//continue;
 		}
 
 		ABCBullet* bullet = actor->As<ABCBullet>();
@@ -381,27 +396,13 @@ void GameLevel_ABC::Draw()
 
 void GameLevel_ABC::SetPlayer(const char* name,const char* comment)
 {
-	if(this->name != nullptr)
-	{
-		delete[] this->name;
-	}
-	if(this->comment != nullptr)
-	{
-		delete[] this->comment;
-	}
+	size_t length = strlen(name) + 1;
+	this->name = new char[length];
+	strcpy_s(this->name,length,name);
 
-	if(name != nullptr)
-	{
-		size_t length = strlen(name) + 1;
-		this->name = new char[length];
-		strcpy_s(this->name,length,name);
-	}
-	if(comment != nullptr)
-	{
-		size_t length = strlen(comment) + 1;
-		this->comment = new char[length];
-		strcpy_s(this->comment,length,comment);
-	}
+	length = strlen(comment) + 1;
+	this->comment = new char[length];
+	strcpy_s(this->comment,length,comment);
 
 	std::cout<<"SetPlayer" << name << comment <<"\n";
 }

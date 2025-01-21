@@ -7,7 +7,9 @@ class ABCBullet: public DrawableActor
 	RTTI_DECLARATIONS(ABCBullet,DrawableActor)
 public:
 	ABCBullet(const Vector2& position,GameLevel_ABC* level);
-	ABCBullet(bool isRow,const Vector2& position);
+
+	~ABCBullet() = default;
+
 	virtual void Update(float deltaTime) override;
 	void SetReImage(const char* image);
 

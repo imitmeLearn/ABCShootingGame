@@ -27,7 +27,6 @@ int main()
 //game.Run();
 
 	Game game;
-	game.LoadLevel(new MenuLevel());
 	game.Run();
 
 	std::cout << "\n??????";

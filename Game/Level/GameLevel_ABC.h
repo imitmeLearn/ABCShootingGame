@@ -16,6 +16,7 @@ class GameLevel_ABC: public Level
 
 public:
 	GameLevel_ABC();
+	~GameLevel_ABC();
 
 	// 출력창에 디버그 보여주기 : https://eteo.tistory.com/673
 	void myDebugMsg(const char* format,...);
@@ -38,6 +39,9 @@ public:
 	//인덱트에 해당하는 슈터 액터
 	Actor* GetShooterActor(int index);
 
+	//플레이어 탄약과 적 충돌처리
+	void ProcessCollisionPlayerBulletandEnemy();
+
 	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
 	Actor* SteponActor(const Vector2& position);
 
@@ -59,4 +63,12 @@ private:
 	int maxX = 0;
 	int maxY = 0;
 	Vector2 maxXY;
+
+	int hitScore = 100;
+	int dodgeScore = 100;
+	int timeScore = 100;
+
+	int totalScore = 0;
+	int hitCount = 0;
+	int dodgeCount = 0;
 };

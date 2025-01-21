@@ -14,10 +14,13 @@ class Stepper: public DrawableActor
 	RTTI_DECLARATIONS(Stepper,DrawableActor)
 public:
 	Stepper(const Vector2& position);
-
 	void SetReImage(const char* image)
 	{
 		//std::cout<<" 그리기 확인 : "<<&image;
+		if(this->image)
+		{
+			delete[] this->image;
+		}
 
 		auto length = strlen(image) + 1;
 		this->image = new char[length];
