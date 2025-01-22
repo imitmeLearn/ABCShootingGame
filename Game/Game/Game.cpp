@@ -92,29 +92,33 @@ void Game::SaveFile(Level* level)
 	{
 		curr->IsSaveData(true);
 
-		playHistory->Load("Save.txt");		// 저장된 데이터 로드.
+		//	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
 
-		playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
-		playHistory->CreatePlayHistory(level);	//저장 테스트
+		playHistory->CreatePlayHistory(level);
 
 		playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
 	}
 }
-void Game::SaveFile(){ //@세윤쌤 질문
+//void Game::SaveFile(){ //@세윤쌤 질문
+//	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
+//	char cStrfTime[64];
+//
+//	__time64_t now2 = _time64(nullptr);
+//	tm tm_2;
+//	gmtime_s(&tm_2,&now2);
+//
+//	strftime(cStrfTime,64,"%Y년 %m월 %d일 %H시 %M분 %S초\n",&tm_2);
+//	std::cout << "SaveFile - 시간: "<<cStrfTime;
+//
+//	playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
+//	playHistory->CreatePlayHistory("TEST","GOOD~","없음",cStrfTime);	//저장 테스트
+//
+//	playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
+//}
+
+void Game::LoadFile()
+{
 	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
-	char cStrfTime[64];
-
-	__time64_t now2 = _time64(nullptr);
-	tm tm_2;
-	gmtime_s(&tm_2,&now2);
-
-	strftime(cStrfTime,64,"%Y년 %m월 %d일 %H시 %M분 %S초\n",&tm_2);
-	std::cout << "SaveFile - 시간: "<<cStrfTime;
-
-	playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
-	playHistory->CreatePlayHistory("TEST","GOOD~","없음",cStrfTime);	//저장 테스트
-
-	playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
 }
 
 void Game::StartGameSetPlayer_ABC()
@@ -135,10 +139,13 @@ void Game::StartGameSetPlayer_ABC()
 	{
 		if(level->IsGameOver())
 		{
-			delete level;
-			level = nullptr;
+			delete gameLevel_ABC;
+			gameLevel_ABC = nullptr;
 
-			level = new GameLevel_ABC();
+			gameLevel_ABC = new GameLevel_ABC();
+
+			level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
+			backLevel = level;
 		}
 
 		level->SetPlayer(name,comment);
@@ -148,23 +155,25 @@ void Game::StartGameSetPlayer_ABC()
 }
 void Game::StartGame_ABC_TESTER()
 {
-	auto level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
+	GameLevel_ABC* level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
 
 	if(level)
 	{
 		if(level->IsGameOver())
 		{
-			delete level;
-			level = nullptr;
+			delete gameLevel_ABC;
+			gameLevel_ABC = nullptr;
 
-			level = new GameLevel_ABC();
+			gameLevel_ABC = new GameLevel_ABC();
+			level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
+			backLevel = level;
 
-			level->SetPlayer("RE-TESTER","comment : winwin again");
+			level->SetPlayer("RE-TESTER","winwin again");
 		}
 
 		else
 		{
-			level->SetPlayer("TESTER","comment : winwin");
+			level->SetPlayer("TESTER"," winwin");
 		}
 	}
 

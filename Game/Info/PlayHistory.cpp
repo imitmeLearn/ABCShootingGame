@@ -50,6 +50,8 @@ void PlayHistory::CreatePlayHistory(const char * name,const char * comment,const
 	playerInfos[count] = new PlayerInfo(name,comment,playTime,endTime,99999,99999,99999);
 	++count;
 }
+
+//데이터 저장
 void PlayHistory::CreatePlayHistory(Level* level)
 {
 	auto*	gameLevel = dynamic_cast<GameLevel_ABC*>(level);

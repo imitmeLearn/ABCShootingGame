@@ -12,7 +12,7 @@ MenuLevel::MenuLevel()
 	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().QuitGame(); }));
 	menuItems.PushBack(new MenuItem("Resume Game",[]() { Game::Get().ToggleMenu(); }));
 	menuItems.PushBack(new MenuItem("Quit Game",[]() { Game::Get().QuitGame(); }));
-	menuItems.PushBack(new MenuItem("Save History",[]() { Game::Get().SaveFile(); }));
+	//menuItems.PushBack(new MenuItem("Save History",[]() { Game::Get().SaveFile(); }));
 
 	length = menuItems.Size();
 }
