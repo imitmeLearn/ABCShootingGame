@@ -52,5 +52,5 @@ void Enemy::Update(float deltaTime)
 	elapsedTime = 0.f;	//타이머 초기화
 	fireInterval = RandomPercent(1.f,2.f);
 
-	//Engine::Get().AddActor(new EnemyBullet(Vector2(position.x+width /2,position.y),refLevel));
+	refLevel->AddActor(new EnemyBullet(Vector2(position.x+ (width /2),position.y),refLevel));	//Engine::Get().AddActor(new EnemyBullet(Vector2(position.x+width /2,position.y),refLevel));
 }

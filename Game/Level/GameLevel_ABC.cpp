@@ -10,6 +10,7 @@
 #include "Actorabc/Stepper.h"
 #include "ActorABC/Enemy.h"
 #include "ActorABC/ABCBullet.h"
+#include "ActorABC/EnemyBullet.h"
 
 #include "Engine/Timer.h"
 
@@ -115,7 +116,7 @@ GameLevel_ABC::GameLevel_ABC()
 		else if(mapChar == 'S')
 		{
 			//Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			//actors.PushBack(ground);
+			//AddActor(ground);
 			//map.PushBack(ground);	//랜더 제어 목적으로!
 
 			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition));
@@ -282,6 +283,7 @@ void GameLevel_ABC::Draw()
 	// 적 리스트 초기화.
 	List<Enemy*> enemies;
 	List<ABCBullet*> bullets;
+	List<EnemyBullet*> enemybullets;
 	for(auto* actor : actors)
 	{
 		Enemy* enemy = actor->As<Enemy>();
@@ -295,6 +297,12 @@ void GameLevel_ABC::Draw()
 		if(bullet)
 		{
 			bullets.PushBack(bullet);
+		}
+
+		EnemyBullet* enemybullet = actor->As<EnemyBullet>();
+		if(enemybullet)
+		{
+			enemybullets.PushBack(enemybullet);
 		}
 	}
 
@@ -382,6 +390,36 @@ void GameLevel_ABC::Draw()
 				if(bullet->IsActive())
 				{
 					bullet -> Draw();
+				}
+			}
+		}
+	}
+
+	//적총알 그리기
+	if(enemybullets.Size() > 0)
+	{
+		for(auto* enemyBullet : enemybullets)
+		{
+			if(enemyBullet-> Position() == player_ABC->Position())	//플레이어 위치 확인
+			{
+				continue;
+			}
+
+			bool shouldDraw = true;
+			/*for(auto* shooter : shooters)
+			{
+				if(bullet->Position() == shooter->Position())
+				{
+					shouldDraw = false;
+					break;
+				}
+			}*/
+
+			if(shouldDraw)
+			{
+				if(enemyBullet->IsActive())
+				{
+					enemyBullet -> Draw();
 				}
 			}
 		}
