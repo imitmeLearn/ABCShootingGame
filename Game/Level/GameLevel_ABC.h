@@ -100,7 +100,7 @@ public:
 		GetLocalTime(&time);
 
 		char tempBuffer[256];
-		sprintf_s(tempBuffer,256,"%d %d %d 시간 %d %d %d",
+		sprintf_s(tempBuffer,256,"%d %d %d - %d %d %d",
 			time.wYear,time.wMonth,time.wDay,time.wHour,time.wMinute,time.wSecond
 		);
 

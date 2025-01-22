@@ -9,7 +9,7 @@ MenuLevel::MenuLevel()
 	menuItems.PushBack(new MenuItem("Start Game",[]() { Game::Get().StartGameSetPlayer_ABC(); }));
 	menuItems.PushBack(new MenuItem("Start Game - sokoban",[]() { Game::Get().StartGame_Sokoban(); }));
 	//menuItems.PushBack(new MenuItem("Start Game_mini",[]() { Game::Get().StartGame_mini(); }));
-	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().QuitGame(); }));
+	menuItems.PushBack(new MenuItem("--HISTORY--",[]() { Game::Get().LoadFile(); }));
 	menuItems.PushBack(new MenuItem("Resume Game",[]() { Game::Get().ToggleMenu(); }));
 	menuItems.PushBack(new MenuItem("Quit Game",[]() { Game::Get().QuitGame(); }));
 	//menuItems.PushBack(new MenuItem("Save History",[]() { Game::Get().SaveFile(); }));

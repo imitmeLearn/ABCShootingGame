@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <cstdio>
+
 class PlayerInfo
 {
 public:
@@ -8,8 +10,27 @@ public:
 	// 문자열 직렬화(Serialization) 함수.
 	virtual const char* Serialize();
 
+	void PrintInfos()
+	{
+		printf
+		(
+			"\n name : %s   comment : %s   playTime: %s   endTime: %s  --- totalScore : %d ( hitCount: %d   dodgeCount: %d ) \n\n"
+			,name,comment,playTime,endTime,totalScore,hitCount,dodgeCount
+		);
+	}
+
+	bool IsNull()
+	{
+		if(name == nullptr)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 protected:
-	char* name;			//이름
+	char* name ;			//이름
 	char* comment;			//코멘트
 	char* playTime;		//플레이타임
 	char* endTime;		//플레이 종료 시간

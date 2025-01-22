@@ -118,7 +118,15 @@ void Game::SaveFile(Level* level)
 
 void Game::LoadFile()
 {
+	if(!playHistory)
+	{
+		std::cout << " 1/2 playHistory null 1 \n";
+		return;
+	}
+	playHistory->ClearInfos();
 	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
+
+	playHistory->PrintHistory();
 }
 
 void Game::StartGameSetPlayer_ABC()
@@ -168,12 +176,12 @@ void Game::StartGame_ABC_TESTER()
 			level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
 			backLevel = level;
 
-			level->SetPlayer("RE-TESTER","winwin again");
+			level->SetPlayer("RE-TESTER","-- winwin again");
 		}
 
 		else
 		{
-			level->SetPlayer("TESTER"," winwin");
+			level->SetPlayer("TESTER"," winwin --");
 		}
 	}
 

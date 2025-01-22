@@ -26,9 +26,15 @@ public:
 
 	//히스토리 로드
 	void Load(const char* filename);
-
+	void ClearInfos()
+	{
+		count = 0;
+		for(int i = 0; i < 100; ++i) {
+			playerInfos[i] = nullptr; // 초기화
+		}
+	}
 private:
-	PlayerInfo* playerInfos[1000] = {};			// 플레이어 저장을 위한 배열.
+	PlayerInfo* playerInfos[100] = {};			// 플레이어 저장을 위한 배열.
 
 	int count = 0;
 };

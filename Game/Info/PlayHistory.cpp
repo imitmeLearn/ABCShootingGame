@@ -66,6 +66,35 @@ void PlayHistory::CreatePlayHistory(Level* level)
 
 	++count;
 }
+void PlayHistory::PrintHistory()
+{
+	if(!playerInfos)
+	{
+		std::cout << " 2/2 playerInfos null \n";
+		return;
+	}
+
+	int length = sizeof(playerInfos);
+	for(int ix = 0; ix < length; ix++)
+	{
+		if(playerInfos[ix] == nullptr)
+		{
+			//std::cout << " 3 (playerInfos[ix] == nullptr) null \n";
+		}
+
+		else
+		{
+			if(playerInfos[ix]->IsNull())
+			{
+				std::cout << " 4 playerInfos[ix]->IsNull()) \n";
+			}
+
+			else{
+				playerInfos[ix]->PrintInfos();
+			}
+		}
+	}
+}
 void PlayHistory::PrintMenu()
 {
 	// 메뉴 목록 출력.
