@@ -9,7 +9,7 @@ public:
 	Game();
 	~Game();
 
-	bool CheckPlaying(Level* nextGameLevel);
+	bool isSameBackLevel(Level* nextGameLevel);
 
 	void ToggleMenu();
 	void StartGameSetPlayer_ABC();
@@ -39,7 +39,7 @@ private:
 
 	Level* historyLevel = nullptr;
 
-	PlayHistory* playHistory = new PlayHistory();
+	PlayHistory* playHistory = nullptr;
 private:
 
 	static Game* instance;

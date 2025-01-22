@@ -532,6 +532,10 @@ Actor* GameLevel_ABC::SteponActor(const Vector2 & position)
 
 void GameLevel_ABC::SpawnEnemy(float deltaTime)
 {
+	if(isGameOver)
+	{
+		return ;
+	}
 	static float	elapsedTime = 0.f;
 	static float	spawnTime = RandomPercent(1.f,3.f);
 
@@ -571,6 +575,11 @@ Actor* GameLevel_ABC::GetShooterActor(int index)
 
 void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
 {
+	if(isGameOver)
+	{
+		return ;
+	}
+
 	List<ABCBullet*> bullets;	//탄약 및 적 캐릭터 배열 선언.
 	List<Enemy*> enemies;		//탄약 및 적 캐릭터 배열 선언.
 
@@ -619,6 +628,11 @@ void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
 
 void GameLevel_ABC::ProcessCollisionPlayerAndEnemy()
 {
+	if(isGameOver)
+	{
+		return ;
+	}
+
 	Player_ABC* player = nullptr;
 	List<Enemy*> enemies;
 
@@ -649,9 +663,7 @@ void GameLevel_ABC::ProcessCollisionPlayerAndEnemy()
 		{
 			isGameOver = true;
 
-			//player -> Destroy();
-
-			//?
+			break;
 		}
 	}
 }

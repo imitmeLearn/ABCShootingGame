@@ -5,6 +5,10 @@ class Shooter: public DrawableActor
 {
 	RTTI_DECLARATIONS(Shooter,DrawableActor)
 public:
+	//~Shooter()//DrawableActor 에서 지우니까
+	//{
+	//	delete image;
+	//}
 	Shooter(const Vector2& position);
 
 	void SetReImage(const char* image)

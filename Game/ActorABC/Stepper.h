@@ -13,6 +13,10 @@ class Stepper: public DrawableActor
 {
 	RTTI_DECLARATIONS(Stepper,DrawableActor)
 public:
+	//~Stepper() //DrawableActor 에서 지우니까
+	//{
+	//	delete[] image;
+	//}
 	Stepper(const Vector2& position);
 	void SetReImage(const char* image)
 	{

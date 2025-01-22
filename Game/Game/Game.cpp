@@ -15,6 +15,8 @@ Game::Game()
 	LoadLevel(menuLevel);
 	gameLevel_sokoban = new GameLevel();
 	gameLevel_ABC = new GameLevel_ABC();
+
+	playHistory = new PlayHistory();
 }
 
 Game::~Game()
@@ -50,7 +52,8 @@ Game::~Game()
 	}
 }
 
-bool Game::CheckPlaying(Level * nextGameLevel)
+//백 레벨이랑,진입할 레벨이 같으면, 같은거 / 다르면, 다른거
+bool Game::isSameBackLevel(Level * nextGameLevel)
 {
 	if(backLevel == nextGameLevel)
 	{
@@ -63,14 +66,15 @@ void Game::StartGame_Sokoban()
 {
 	system("cls");
 	showMenu = !showMenu;
-	if(showMenu ||  !CheckPlaying(gameLevel_sokoban))
+	//소코반 재입장 아니라면,
+	if(showMenu ||  !isSameBackLevel(gameLevel_sokoban))
 	{
 		Game::Get().SetShowMenu(false);
 
 		backLevel = mainLevel;
 		mainLevel = gameLevel_sokoban;
 	}
-
+	//소코반 재입장이면,
 	else
 	{
 		mainLevel = backLevel;
@@ -115,6 +119,14 @@ void Game::StartGameSetPlayer_ABC()
 	auto level = dynamic_cast<GameLevel_ABC*>(gameLevel_ABC);
 	if(level)
 	{
+		if(level->IsGameOver())
+		{
+			delete level;
+			level = nullptr;
+
+			level = new GameLevel_ABC();
+		}
+
 		level->SetPlayer(name,comment);
 	}
 
@@ -126,11 +138,20 @@ void Game::StartGame_ABC_TESTER()
 
 	if(level)
 	{
-		level->SetPlayer("TESTER","comment : winwin");
-	}
+		if(level->IsGameOver())
+		{
+			delete level;
+			level = nullptr;
 
-	if(level->IsGameOver())
-	{
+			level = new GameLevel_ABC();
+
+			level->SetPlayer("RE-TESTER","comment : winwin again");
+		}
+
+		else
+		{
+			level->SetPlayer("TESTER","comment : winwin");
+		}
 	}
 
 	StartGame_ABC();
@@ -142,18 +163,8 @@ void Game::StartGame_ABC()
 	//Clear();
 
 	showMenu = !showMenu;
-	if(showMenu ||!CheckPlaying(gameLevel_ABC))
+	if(showMenu ||!isSameBackLevel(gameLevel_ABC))
 	{
-		auto level = gameLevel_ABC->As<GameLevel_ABC>();
-
-		if(level->IsGameOver())
-		{
-			delete gameLevel_sokoban;
-			gameLevel_sokoban = nullptr;
-
-			gameLevel_sokoban = new GameLevel_ABC();
-		}
-
 		backLevel = mainLevel;
 		mainLevel = gameLevel_ABC;
 
