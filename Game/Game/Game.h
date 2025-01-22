@@ -16,6 +16,7 @@ public:
 	void StartGame_ABC_TESTER();
 	void StartGame_ABC();
 	void SaveFile();
+	void SaveFile(Level* level);
 	void StartGame_Sokoban();
 	//void StartGame();
 	void StartGame_mini();

@@ -8,15 +8,15 @@
 #define new new
 #endif
 
-// 메모리 해제 함수.
-template<typename T>
-void SafeDelete(T* pointer)
-{
-	if(pointer != nullptr)
-	{
-		delete pointer;
-	}
-}
+//// 메모리 해제 함수.   //이미 엔진에 있따.
+//template<typename T>
+//void SafeDelete(T* pointer)
+//{
+//	if(pointer != nullptr)
+//	{
+//		delete pointer;
+//	}
+//}
 
 PlayHistory::PlayHistory()
 	:count(0)
@@ -50,7 +50,20 @@ void PlayHistory::CreatePlayHistory(const char * name,const char * comment,const
 	playerInfos[count] = new PlayerInfo(name,comment,playTime,endTime,99999,99999,99999);
 	++count;
 }
+void PlayHistory::CreatePlayHistory(Level* level)
+{
+	auto*	gameLevel = dynamic_cast<GameLevel_ABC*>(level);
 
+	if(!gameLevel)
+	{
+		return;
+	}
+
+	playerInfos[count] = new PlayerInfo(gameLevel->GetName(),gameLevel->GetComment(),gameLevel->GetPlayTime()
+		,gameLevel->GetEndTime(),gameLevel->GetTotalScore(),gameLevel->GetHitCount(),gameLevel->GetDodgeCount());
+
+	++count;
+}
 void PlayHistory::PrintMenu()
 {
 	// 메뉴 목록 출력.

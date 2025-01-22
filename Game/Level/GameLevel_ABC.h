@@ -4,6 +4,7 @@
 #include <cstdarg>   // va_list, va_start, va_end
 #include <cstdio>    // vsnprintf
 #include <cwchar> // vswprintf
+#include <cmath>
 
 #include "Level/Level.h"
 #include <Math/Vector2.h>
@@ -52,7 +53,62 @@ public:
 
 	char* GetName ()
 	{
-		return name;
+		if(name)
+		{
+			return name;
+		}
+
+		else
+		{
+			name = new char[5];
+			strcpy_s(name,sizeof(name),"null");
+
+			return name;
+		}
+	}
+	char* GetComment ()
+	{
+		if(comment)
+		{
+			return comment;
+		}
+
+		else
+		{
+			comment = new char[5];
+			strcpy_s(comment,sizeof(comment),"null");
+
+			return comment;
+		}
+	}
+	inline const char* GetPlayTime()
+	{
+		char tempBuffer[256] = {};
+		int minutes = (int)(gamePlayTime / 60.0f);
+		int seconds = (int)fmod(gamePlayTime,60.0f);
+		sprintf_s(tempBuffer,256,"%d분 %d초",minutes,seconds);
+
+		playTime = new char[strlen(tempBuffer) + 1];
+		strcpy_s(playTime,strlen(tempBuffer) + 1,tempBuffer);
+
+		return playTime;
+	}
+
+	char* GetEndTime()
+	{
+		SYSTEMTIME time;
+		GetLocalTime(&time);
+
+		char tempBuffer[256];
+		sprintf_s(tempBuffer,256,"%d %d %d 시간 %d %d %d",
+			time.wYear,time.wMonth,time.wDay,time.wHour,time.wMinute,time.wSecond
+		);
+
+		endTime = new char[strlen(tempBuffer) + 1];
+		strcpy_s(endTime,strlen(tempBuffer) + 1,tempBuffer);
+		endTime[strlen(tempBuffer)] = '\0';
+
+		return endTime;
 	}
 
 	int GetTotalScore()
@@ -60,21 +116,60 @@ public:
 		return totalScore;
 	}
 
+	int  GetHitCount()
+	{
+		return hitCount;
+	}
+
+	int  GetDodgeCount()
+	{
+		return dodgeCount;
+	}
+
+	void HitCount()
+	{
+		hitCount++;
+		totalScore = hitCount * hitScore;
+	}
+
+	void DodgeCount()
+	{
+		dodgeCount++;
+		totalScore = dodgeCount * dodgeScore;
+	}
+
+	//상단 UI
 	void DrawPlayerInfo()
 	{
-		std::cout << " StartGame_ABC SHOOTING  \n";
+		std::cout << " ====  Game_ABC SHOOTING  ====\n";
 		std::cout << " 플레이어 이름 :   " << GetName()
-			<< "   플레이 시간 :  "
+			<< "  (  " << GetComment()<< "  )     "
+			<< "   플레이 시간 ( " <<GetPlayTime()<< " ) "
 			<< "   점수 :  " << GetTotalScore();
 	}
 
-	bool IsGameOver(){
+	bool IsGameOver()
+	{
 		return	isGameOver;
 	}
 
+	bool IsSaveData()
+	{
+		return isSaveData;
+	}
+	void IsSaveData(bool isSave)
+	{
+		isSaveData = isSave;
+	}
+
 private:
-	char* name = nullptr;		// 플레이어 이름
-	char* comment= nullptr;		// 플레이어 코멘트
+	char* name = nullptr;			//이름
+	char* comment = nullptr;			//코멘트
+	char* playTime = nullptr ;		//플레이타임
+	char* endTime = nullptr;		//플레이 종료 시간
+	int totalScore = 0;
+	int hitCount = 0;		//적 파괴 수
+	int dodgeCount = 0;		//적 회피 수
 
 	List <DrawableActor*> map;	//벽 땅 액터 배열
 	List <DrawableActor*> shooters;	//벽 땅 액터 배열
@@ -93,7 +188,8 @@ private:
 	int dodgeScore = 100;
 	int timeScore = 100;
 
-	int totalScore = 0;
-	int hitCount = 0;
-	int dodgeCount = 0;
+	bool isSaveData = false;		//종료 시 게임저장 여부
+
+	// 게임 시간 기록용 변수.
+	float gamePlayTime = 0.0f;
 };

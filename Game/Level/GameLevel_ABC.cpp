@@ -82,14 +82,14 @@ GameLevel_ABC::GameLevel_ABC()
 		{
 			//	actors.PushBack(new Wall(Vector2(xPosition,yPosition)));
 			Wall * wall = new Wall(Vector2(xPosition,yPosition));
-			actors.PushBack(wall);
+			AddActor(wall);	//actors.PushBack(wall);  //@세윤쌤 ; push 에서 actor 로 다 변경? map 리스트는??
 			map.PushBack(wall);
 		}
 
 		else if(mapChar == '.')
 		{
 			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			actors.PushBack(ground);
+			AddActor(ground);
 			map.PushBack(ground);
 		}
 
@@ -119,7 +119,7 @@ GameLevel_ABC::GameLevel_ABC()
 			//map.PushBack(ground);	//랜더 제어 목적으로!
 
 			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition));
-			actors.PushBack(shooter);
+			AddActor(shooter);
 			map.PushBack(shooter);	//랜더 제어 목적으로! //깜밖임 제어??
 			shooters.PushBack(shooter);
 		}
@@ -127,11 +127,11 @@ GameLevel_ABC::GameLevel_ABC()
 		else if(mapChar == 's')
 		{
 			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			actors.PushBack(ground);
+			AddActor(ground);
 			map.PushBack(ground);	//랜더 제어 목적으로!
 
 			Stepper* stepper =  new Stepper(Vector2(xPosition,yPosition));
-			actors.PushBack(stepper);
+			AddActor(stepper);
 			map.PushBack(stepper);	//랜더 제어 목적으로! //깜밖임 제어??
 			steppers.PushBack(stepper);
 		}
@@ -139,11 +139,11 @@ GameLevel_ABC::GameLevel_ABC()
 		else if(mapChar == 'P')	//움직이기에, Ground 먼저 그려줌
 		{
 			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			actors.PushBack(ground);
+			AddActor(ground);
 			map.PushBack(ground);	//랜더 제어 목적으로!
 
 			player_ABC =  new Player_ABC(Vector2(xPosition,yPosition),this);
-			actors.PushBack(player_ABC);
+			AddActor(player_ABC);
 		}
 
 		++xPosition;
@@ -206,6 +206,18 @@ GameLevel_ABC::~GameLevel_ABC()
 		this->comment = nullptr;
 	}
 
+	if(this->playTime != nullptr)
+	{
+		delete[] this->playTime;
+		this->playTime = nullptr;
+	}
+
+	if(this->endTime != nullptr)
+	{
+		delete[] this->endTime;
+		this->endTime = nullptr;
+	}
+
 	//enemy
 }
 
@@ -229,6 +241,9 @@ void GameLevel_ABC::Update(float deltaTime)
 
 	if(!isGameOver)
 	{
+		// 게임 시간 누적.
+		gamePlayTime += deltaTime;
+
 		SpawnEnemy(deltaTime);
 
 		ProcessCollisionPlayerBulletandEnemy();
@@ -250,6 +265,11 @@ void GameLevel_ABC::Update(float deltaTime)
 		Log("======  ABC SHOOTING GameOVER  ====== \n");
 		Sleep(100);				//쓰레드 정지
 		//Engine::Get().QuitGame();	//게임 종료 처리
+
+		if(!IsSaveData())
+		{
+			Game::Get().SaveFile(this);
+		}
 	}
 }
 
@@ -617,10 +637,8 @@ void GameLevel_ABC::ProcessCollisionPlayerBulletandEnemy()
 			{
 				enemy -> Destroy();			// 충돌했으면 적 제거.
 				bullet->Destroy();			// 탄약도 제거.
-				totalScore += hitScore;		//점수 추가
-				hitCount++;					//hit 수 증가
 
-				myDebugMsg("totalScore  %d, hitCount %d",totalScore,hitCount);
+				HitCount();					//hit 수 증가
 			}
 		}
 	}

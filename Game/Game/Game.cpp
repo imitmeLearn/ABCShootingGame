@@ -85,7 +85,21 @@ void Game::StartGame_mini()
 	system("cls");
 	std::cout << "StartGame_mini";
 }
+void Game::SaveFile(Level* level)
+{
+	auto* curr = level->As<GameLevel_ABC>();
+	if(curr)
+	{
+		curr->IsSaveData(true);
 
+		playHistory->Load("Save.txt");		// 저장된 데이터 로드.
+
+		playHistory->CreatePlayHistory("테스터","잘한다~");	//저장 테스트
+		playHistory->CreatePlayHistory(level);	//저장 테스트
+
+		playHistory->Save("Save.txt");		// 프로그램 종료 시 파일 저장.
+	}
+}
 void Game::SaveFile(){ //@세윤쌤 질문
 	playHistory->Load("Save.txt");		// 저장된 데이터 로드.
 	char cStrfTime[64];

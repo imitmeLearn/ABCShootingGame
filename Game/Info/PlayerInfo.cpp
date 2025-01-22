@@ -34,8 +34,9 @@ PlayerInfo::PlayerInfo(const char* name,const char* comment,const char* playTime
 PlayerInfo::~PlayerInfo()
 {
 	delete[] name;
-	delete[] playTime;
 	delete[] comment;
+	delete[] playTime;
+	delete[] endTime;
 }
 
 const char * PlayerInfo::Serialize()
