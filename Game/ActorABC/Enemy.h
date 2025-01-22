@@ -6,13 +6,6 @@ class Enemy: public DrawableActor
 {
 	RTTI_DECLARATIONS(Enemy,DrawableActor)
 
-		enum class Direction
-	{
-		None = -1,
-		Left,
-		Right
-	};
-
 public:
 	//Enemy(const Vector2& position);
 	//Enemy(const char* image,int yPosition);

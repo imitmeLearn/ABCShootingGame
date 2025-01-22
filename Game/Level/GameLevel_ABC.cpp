@@ -115,13 +115,13 @@ GameLevel_ABC::GameLevel_ABC()
 
 		else if(mapChar == 'S')
 		{
-			//Ground* ground =  new Ground(Vector2(xPosition,yPosition));
-			//AddActor(ground);
-			//map.PushBack(ground);	//랜더 제어 목적으로!
+			Ground* ground =  new Ground(Vector2(xPosition,yPosition));
+			AddActor(ground);
+			map.PushBack(ground);	//랜더 제어 목적으로!
 
-			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition));
+			Shooter* shooter =  new Shooter(Vector2(xPosition,yPosition),this);
 			AddActor(shooter);
-			map.PushBack(shooter);	//랜더 제어 목적으로! //깜밖임 제어??
+			//map.PushBack(shooter);	//랜더 제어 목적으로! //깜밖임 제어??
 			shooters.PushBack(shooter);
 		}
 
@@ -332,6 +332,21 @@ void GameLevel_ABC::Draw()
 					shouldDraw = false;
 					break;
 				}*/
+			}
+		}
+
+		if(shooters.Size() > 0)
+		{
+			for(auto* shooter : shooters)
+			{
+				if((actor->Position().x -  shooter->Position().x) < shooter->Width()
+					&& (actor->Position().x -  shooter->Position().x) >= 0
+					&& actor->Position().y ==  shooter->Position().y
+					)
+				{
+					shouldDraw = false;
+					break;
+				}
 			}
 		}
 

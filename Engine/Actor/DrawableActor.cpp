@@ -45,11 +45,11 @@ bool DrawableActor::Intersect(const DrawableActor & other)
 	//AABB
 
 	int min = position.x;				//내 액터 x좌표 최소
-	int max = position.x + width;		//내 액터 x좌표 최대
+	int max = position.x + width -1;		//내 액터 x좌표 최대
 
 	//다른 액터 x좌표 최소/최대
 	int otherMin = other.position.x;					//다른 액터 x좌표 최소
-	int otherMax = other.position.x + other.width;		//다른 액터 x좌표 최대
+	int otherMax = other.position.x + other.width-1;		//다른 액터 x좌표 최대
 
 	if(otherMin > max)	//다른 액터의 왼쪽 끝 위치가 내 오른쪽 끝 위치를 벗어나면 출동 안함.
 	{

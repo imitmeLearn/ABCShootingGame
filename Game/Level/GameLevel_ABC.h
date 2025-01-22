@@ -8,7 +8,12 @@
 
 #include "Level/Level.h"
 #include <Math/Vector2.h>
-
+enum class Direction
+{
+	None = -1,
+	Left,
+	Right
+};
 class DrawableActor ; //전방선언
 class Player_ABC;
 class GameLevel_ABC: public Level

@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <Actor/DrawableActor.h>
+#include <Level/GameLevel_ABC.h>
+
 class Shooter: public DrawableActor
 {
 	RTTI_DECLARATIONS(Shooter,DrawableActor)
@@ -9,7 +11,7 @@ public:
 	//{
 	//	delete image;
 	//}
-	Shooter(const Vector2& position);
+	Shooter(const Vector2& position,GameLevel_ABC* level);
 
 	virtual void Update(float deltaTime) override;
 
@@ -37,4 +39,11 @@ public:
 
 private:
 	int index = -1;
+
+	GameLevel_ABC* refLevel = nullptr;
+	Direction direction = Direction::Right;		//방향변수
+
+	int	xPosition = 0;
+	int	yPosition = 0;
+	float speed = 30.f;
 };
