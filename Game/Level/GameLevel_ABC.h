@@ -46,6 +46,9 @@ public:
 	//플레이어와 적 충돌처리
 	void ProcessCollisionPlayerAndEnemy();
 
+	//적 탄약 과 플레이어 충돌처리
+	void ProcessCollisionPlayerAndEnemyBullet();
+
 	//플레이어가 기믹(스텝) 위에 있는지 확인하는 함수
 	Actor* SteponActor(const Vector2& position);
 

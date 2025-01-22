@@ -249,7 +249,7 @@ void GameLevel_ABC::Update(float deltaTime)
 
 		ProcessCollisionPlayerBulletandEnemy();
 		ProcessCollisionPlayerAndEnemy();
-		//ProcessCollisionPlayerAndEnemyBullet();
+		ProcessCollisionPlayerAndEnemyBullet();
 	}
 
 	//게임 종료
@@ -716,6 +716,48 @@ void GameLevel_ABC::ProcessCollisionPlayerAndEnemy()
 	for(Enemy* enemy: enemies)
 	{
 		if(player -> Intersect(*enemy))
+		{
+			isGameOver = true;
+
+			break;
+		}
+	}
+}
+
+void GameLevel_ABC::ProcessCollisionPlayerAndEnemyBullet()
+{
+	if(isGameOver)
+	{
+		return ;
+	}
+
+	Player_ABC* player = nullptr;
+	List<EnemyBullet*> bullets;
+
+	for(Actor* actor:actors)	//레벨에 배치된 액터를 순회하면서, 리스트 채우기.
+	{
+		if(!player)
+		{
+			player = actor->As<Player_ABC>();
+			continue;
+		}
+
+		EnemyBullet* bullet = actor -> As<EnemyBullet>();		//탄약 으로 형변환 후 확인해서, 리스트 채우기
+		if(bullet)
+		{
+			bullets.PushBack(bullet);
+			continue;
+		}
+	}
+
+	if(bullets.Size()==0 || player == nullptr) //예외처리
+	{
+		return;
+	}
+
+	for(EnemyBullet* bullet:bullets)		//두 배열을 순회하면서, 충돌처리
+	{
+		if(player -> Intersect (*bullet))	  // 충돌 처리.
 		{
 			isGameOver = true;
 
