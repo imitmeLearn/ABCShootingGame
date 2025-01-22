@@ -8,3 +8,6 @@ Shooter::Shooter(const Vector2 & position)
 
 	//++this->index ;
 }
+
+void Shooter::Update(float deltaTime)
+{}

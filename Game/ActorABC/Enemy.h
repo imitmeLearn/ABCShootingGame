@@ -22,5 +22,7 @@ private:
 	Direction direction;
 
 	float xPosition = 0.f;
-	float speed = 5.f;
+	float speed = 3.f;
+
+	GameLevel_ABC* refLevel = nullptr;
 };

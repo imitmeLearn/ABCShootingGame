@@ -11,6 +11,8 @@ public:
 	//}
 	Shooter(const Vector2& position);
 
+	virtual void Update(float deltaTime) override;
+
 	void SetReImage(const char* image)
 	{
 		if(this->image)
