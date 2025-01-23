@@ -16,7 +16,7 @@ void ABCBullet::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	if(isRow)
+	if(dir==0)
 	{
 		SetReImage("―");
 
@@ -24,13 +24,45 @@ void ABCBullet::Update(float deltaTime)
 		position.x = (int)xPosition;
 	}
 
-	else
+	else if(dir==1)
+	{
+		SetReImage("|");
+
+		yPosition -= speed * deltaTime;
+		position.y = (int)yPosition;
+	}
+
+	else if(dir==2)
+	{
+		SetReImage("―");
+
+		xPosition -= speed * deltaTime;
+		position.x = (int)xPosition;
+	}
+
+	else if(dir==3)
 	{
 		SetReImage("|");
 
 		yPosition += speed * deltaTime;
 		position.y = (int)yPosition;
 	}
+
+	//if(isRow)
+	//{
+	//	SetReImage("―");
+
+	//	xPosition += speed * deltaTime;
+	//	position.x = (int)xPosition;
+	//}
+
+	//else
+	//{
+	//	SetReImage("|");
+
+	//	yPosition += speed * deltaTime;
+	//	position.y = (int)yPosition;
+	//}
 
 	if(position.y < 0 || position.y > refLevel->GetMaxXY().y)
 	{

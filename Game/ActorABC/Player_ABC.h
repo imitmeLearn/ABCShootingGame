@@ -10,4 +10,7 @@ public:
 	virtual void Update(float deltaTime) override;
 private:
 	GameLevel_ABC* refLevel = nullptr;
+
+	bool isRow =true;
+	int space = 0;
 };

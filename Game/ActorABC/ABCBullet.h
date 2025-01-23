@@ -13,6 +13,16 @@ public:
 	virtual void Update(float deltaTime) override;
 	void SetReImage(const char* image);
 
+	void SetIsRow(bool isRow)
+	{
+		this->isRow=	isRow ;
+	}
+
+	void SetIsRow(int dir)
+	{
+		this->	dir = dir;
+	}
+
 private:
 
 	float speed = 20.f;
@@ -20,6 +30,7 @@ private:
 	float xPosition = 0.f;
 
 	bool isRow= false;
+	int dir= 0;
 
 	GameLevel_ABC* refLevel = nullptr;
 };

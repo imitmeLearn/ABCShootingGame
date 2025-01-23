@@ -167,7 +167,7 @@ void PlayHistory::Load(const char * filename)
 
 			sscanf_s (
 				buffer
-				,"%d - name : %s comment : %s playTime: %s endTime: %s  --- totalScore : %d ( hitCount: %d   dodgeCount: %d ) \n"
+				,"%d - name : %s comment : %s playTime: %s endTime: %s  --- totalScore : %d ( hitCount: %d   dodgeCount: %d )\n"
 				//,"%d - name : %s | comment : %s | playTime: %s | EndTime: %s --------------------------- totalScore : %d ( Hit Count: %d , Dodge Count: %d )"
 				,&type,name,256,comment,256,playTime,256,endTime,256,&totalScore,&hitCount,&dodgeScore
 			);

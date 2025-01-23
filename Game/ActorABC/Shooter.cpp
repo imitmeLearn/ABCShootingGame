@@ -21,17 +21,10 @@ void Shooter::Update(float deltaTime)
 
 	Super::Update(deltaTime);
 
-	//if(refLevel->GetHitCount() > 2)
-
-	float factor = direction == Direction::Left? -1.f : 1.f;		//좌우이동
-	xPosition += factor *speed* deltaTime ;		//x 축 이동
-	//position.x = (int)xPosition;
-
-	//float factor = direction == Direction::Left? -1.f : 1.f;		//좌우이동
-	//xPosition += factor * speed * deltaTime ;		//x 축 이동
-	////xPosition += factor * speed * deltaTime;		//x 축 이동
-	//position.x = (int)xPosition;
-
-	position.x = (int)xPosition % (refLevel->GetMaxXY().x);
-	std::cout <<"shoot"<< position.x << "  "<<deltaTime <<"\n";
+	if(refLevel->GetHitCount() > 2)
+	{
+		float factor = direction == Direction::Left? -1.f : 1.f;		//좌우이동
+		xPosition += factor *speed* deltaTime ;		//x 축 이동
+		position.x = (int)xPosition % (refLevel->GetMaxXY().x);
+	}
 }

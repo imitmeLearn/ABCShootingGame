@@ -94,7 +94,7 @@ public:
 		char tempBuffer[256] = {};
 		int minutes = (int)(gamePlayTime / 60.0f);
 		int seconds = (int)fmod(gamePlayTime,60.0f);
-		sprintf_s(tempBuffer,256,"%d분 %d초",minutes,seconds);
+		sprintf_s(tempBuffer,256,"%d min %d sec",minutes,seconds);
 
 		playTime = new char[strlen(tempBuffer) + 1];
 		strcpy_s(playTime,strlen(tempBuffer) + 1,tempBuffer);
@@ -154,6 +154,7 @@ public:
 			<< "  (  " << GetComment()<< "  )     "
 			<< "   플레이 시간 ( " <<GetPlayTime()<< " ) "
 			<< "   점수 :  " << GetTotalScore();
+		std::cout << "\n ";
 	}
 
 	bool IsGameOver()

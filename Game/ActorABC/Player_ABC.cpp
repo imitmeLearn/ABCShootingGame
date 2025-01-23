@@ -76,7 +76,13 @@ void Player_ABC::Update(float deltaTime)
 
 			//ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  		//Engine::Get().AddActor(new ABCBullet(bulletPosition));
 			//refLevel->SetActors_Bullets(abcBullet);
-			refLevel->AddActor(new ABCBullet(bulletPosition,refLevel));
+			auto* bullet =  new ABCBullet(bulletPosition,refLevel);
+			//bullet->SetIsRow(isRow = !isRow);
+
+			space = (space+1)%4;
+			bullet->SetIsRow(space);
+
+			refLevel->AddActor(bullet);
 		}
 		break;
 		case StepperType::OtherPos:
