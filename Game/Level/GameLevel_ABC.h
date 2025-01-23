@@ -154,7 +154,7 @@ public:
 			<< "  (  " << GetComment()<< "  )     "
 			<< "   플레이 시간 ( " <<GetPlayTime()<< " ) "
 			<< "   점수 :  " << GetTotalScore();
-		std::cout << "\n ";
+		std::cout << "\n                                                            ";
 	}
 
 	bool IsGameOver()

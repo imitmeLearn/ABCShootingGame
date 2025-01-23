@@ -98,6 +98,7 @@ void Player_ABC::Update(float deltaTime)
 
 			ABCBullet* abcBullet = new ABCBullet(bulletPosition,refLevel);  	//@세윤쌤 여기서도 오류	//Engine::Get().AddActor(new ABCBullet(bulletPosition));
 			//refLevel->SetActors_Bullets(abcBullet);
+			abcBullet-> SetIsRow(3);
 			refLevel->AddActor(abcBullet);
 		}
 		break;

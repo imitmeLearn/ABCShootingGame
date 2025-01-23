@@ -30,7 +30,7 @@ private:
 	float xPosition = 0.f;
 
 	bool isRow= false;
-	int dir= 0;
+	int dir= 3;
 
 	GameLevel_ABC* refLevel = nullptr;
 };
