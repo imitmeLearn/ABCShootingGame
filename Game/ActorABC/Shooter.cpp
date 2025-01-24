@@ -24,7 +24,7 @@ void Shooter::Update(float deltaTime)
 	if(refLevel->GetHitCount() > 2)
 	{
 		float factor = direction == Direction::Left? -1.f : 1.f;		//좌우이동
-		xPosition += factor *speed* deltaTime ;		//x 축 이동
-		position.x = (int)xPosition % (refLevel->GetMaxXY().x);
+		xPosition +=(factor *speed* deltaTime) ;		//x 축 이동
+		position.x = (int)ceil(xPosition % (refLevel->GetMaxXY().x));
 	}
 }

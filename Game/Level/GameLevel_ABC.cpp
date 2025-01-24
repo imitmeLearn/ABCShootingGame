@@ -443,10 +443,10 @@ void GameLevel_ABC::Draw()
 	//슈터그리기
 	for(auto* shooter : shooters)
 	{
-		if(shooter-> Position() == player_ABC->Position())	//플레이어 위치 확인
-		{
-			continue;
-		}
+		//if(shooter-> Position() == player_ABC->Position())	//플레이어 위치 확인
+		//{
+		//	continue;
+		//}
 
 		bool shouldDraw = true;
 		/*	for(auto* box : boxes)

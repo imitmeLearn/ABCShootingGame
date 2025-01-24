@@ -45,5 +45,6 @@ private:
 
 	int	xPosition = 0;
 	int	yPosition = 0;
+	//float speed = 0.00000001f;
 	float speed = 20.f;
 };
